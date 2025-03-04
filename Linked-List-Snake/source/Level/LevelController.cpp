@@ -18,8 +18,8 @@ namespace Level
 
     void LevelController::initialize()
     {
-        level_model->initialize();
         level_view->initialize();
+        level_model->initialize(level_view->getGridWidth(),level_view->getGridHeight() );
     }
 
     void LevelController::update()
@@ -30,6 +30,16 @@ namespace Level
     void LevelController::render()
     {
         level_view->render();
+    }
+
+    float LevelController::getCellWidth()
+    {
+        return level_model->getCellWidth();
+    }
+
+    float LevelController::getCellHeight()
+    {
+        return level_model->getCellHeight();
     }
 
     void LevelController::destroy()
