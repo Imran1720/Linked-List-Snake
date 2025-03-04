@@ -1,15 +1,11 @@
 #include "Global/ServiceLocator.h"
 #include "Main/GameService.h"
 
+using namespace Main;
+
 namespace Global
 {
-	using namespace Main;
-	using namespace Graphics;
-	using namespace Event;
-	using namespace Sound;
-	using namespace UI;
-	using namespace Time;
-	using namespace Level;
+
 
 	ServiceLocator::ServiceLocator()
 	{
