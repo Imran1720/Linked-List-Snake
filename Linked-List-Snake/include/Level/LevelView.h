@@ -32,6 +32,8 @@ namespace Level
 		void initializeBorder();
 
 		void createViews();
+		void updateViews();
+		void renderViews();
 
 		void destroy();
 

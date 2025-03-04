@@ -1,10 +1,11 @@
 #include "../../include/Level/LevelView.h"
 #include "../../include/Level/LevelController.h"
-
+#include "../../include/Main/GameService.h"
 #include "../../include/Global/Config.h"
 #include "../../include/Global/ServiceLocator.h"
 
 using namespace Global;
+using namespace Main;
 
 
 namespace Level
@@ -29,10 +30,18 @@ namespace Level
 
     void LevelView::update()
     {
+        if (GameService::getGameState() == GameState::GAMEPLAY)
+        {
+            updateViews();
+        }
     }
 
     void LevelView::render()
     {
+        if (GameService::getGameState() == GameState::GAMEPLAY)
+        {
+            renderViews();
+        }
     }
 
     float LevelView::getGridWidth()
@@ -66,7 +75,7 @@ namespace Level
     void LevelView::initializeBorder()
     {
 
-        border_rectangle->initialize(Vector2f(grid_width,grid_height),Vector2f(0,0),border_thickness,Color::Transparent,border_color);
+        border_rectangle->initialize(Vector2f(grid_width,grid_height),Vector2f(border_offset_left,border_offset_top),border_thickness,Color::Transparent,border_color);
         border_rectangle->show();
     }
 
@@ -74,6 +83,18 @@ namespace Level
     {
         background_rectangle = new RectangleShapeView();
         border_rectangle = new RectangleShapeView();
+    }
+
+    void LevelView::updateViews()
+    {
+        background_rectangle->update();
+        border_rectangle->update();
+    }
+
+    void LevelView::renderViews()
+    {
+        background_rectangle->render();
+        border_rectangle->render();
     }
 
     void LevelView::destroy()
