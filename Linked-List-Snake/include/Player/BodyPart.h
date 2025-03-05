@@ -32,5 +32,9 @@ namespace Player
 
 		void render();
 		Vector2f getBodypartScreenPosition();
+		float getRotationAngle();
+		void setDirection(Direction direction);
+
+		void updatePosition();
 	};
 }
