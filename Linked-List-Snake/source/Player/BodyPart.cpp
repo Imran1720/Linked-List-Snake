@@ -80,6 +80,55 @@ namespace Player
 		bodypart_image->update();
 	}
 
+	Vector2i BodyPart::getNextPositionUP()
+	{
+		switch (direction)
+		{
+		case Direction::UP:
+
+		case Direction::DOWN:
+
+		case Direction::LEFT:
+
+		case Direction::RIGHT:
+		}
+	}
+
+	Vector2i BodyPart::getnextPositionUp()
+	{
+		return Vector2i(grid_position.x,grid_position.y+1);
+	}
+
+	Vector2i BodyPart::getnextPositionDown()
+	{
+		return Vector2i(grid_position.x, grid_position.y - 1);
+	}
+
+	Vector2i BodyPart::getnextPositionLeft()
+	{
+		return Vector2i(grid_position.x-1, grid_position.y);
+	}
+
+	Vector2i BodyPart::getnextPositionRight()
+	{
+		return Vector2i(grid_position.x+1, grid_position.y );
+	}
+
+	void BodyPart::setPosition(Vector2i position)
+	{
+		grid_position = position;
+	}
+
+	Direction BodyPart::getDirection()
+	{
+		return direction;
+	}
+
+	Vector2i BodyPart::getPosition()
+	{
+		return grid_position;
+	}
+
 	void BodyPart::destroy()
 	{
 		delete(bodypart_image);

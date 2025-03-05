@@ -36,5 +36,15 @@ namespace Player
 		void setDirection(Direction direction);
 
 		void updatePosition();
+
+		Vector2i getNextPositionUP();
+
+		Vector2i getnextPositionUp();
+		Vector2i getnextPositionDown();
+		Vector2i getnextPositionLeft();
+		Vector2i getnextPositionRight();
+
+		void setPosition(Vector2i position);
+
 	};
 }
