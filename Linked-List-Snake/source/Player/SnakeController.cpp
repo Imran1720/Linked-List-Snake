@@ -31,6 +31,14 @@ namespace Player
 	{
 	}
 
+	void SnakeController::reset()
+	{
+	}
+
+	void SnakeController::respawnSnake()
+	{
+	}
+
 	void SnakeController::spawnSnake()
 	{
 	}
@@ -66,6 +74,10 @@ namespace Player
 	}
 
 	void SnakeController::processSnakeCollision()
+	{
+	}
+
+	void SnakeController::handleRestart()
 	{
 	}
 
