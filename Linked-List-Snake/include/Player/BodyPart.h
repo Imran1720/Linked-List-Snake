@@ -20,6 +20,17 @@ namespace Player
 		float bodypart_width;
 		float bodypart_height;
 
+		void createBodyPartImage();
+		void destroy();
+	public:
+		BodyPart();
+		~BodyPart();
 
+		void initialize(float width, float height, Vector2i position, Direction moving_directiion);
+		void initializeBodypartImage();
+
+
+		void render();
+		Vector2f getBodypartScreenPosition();
 	};
 }
