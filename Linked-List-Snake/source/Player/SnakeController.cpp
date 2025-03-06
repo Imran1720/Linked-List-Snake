@@ -1,11 +1,13 @@
 #include "../../include/Player/SnakeController.h"
 #include "../../include/Global/ServiceLocator.h"
+#include "../../include/Event/EventService.h"
 
 #include <iostream>
 using namespace std;
 
 
 using namespace Global;
+using namespace Event;
 
 namespace Player
 {
@@ -72,6 +74,7 @@ namespace Player
 		return current_snake_state;
 	}
 
+	
 	void SnakeController::processSnakeBehaviour()
 	{
 		processPlayerInput();
@@ -83,14 +86,38 @@ namespace Player
 
 	void SnakeController::processPlayerInput()
 	{
+		EventService* event_service = ServiceLocator::getInstance()->getEventService();
+
+		if (event_service->pressedUpArrowKey() && current_direction!=Direction::DOWN)
+		{
+			current_direction = Direction::UP;
+		}
+		else if (event_service->pressedDownArrowKey() && current_direction != Direction::UP)
+		{
+			current_direction = Direction::DOWN;
+
+		}
+		else if (event_service->pressedLeftArrowKey() && current_direction != Direction::RIGHT)
+		{
+			current_direction = Direction::LEFT;
+
+		}
+		else if (event_service->pressedRightArrowKey() && current_direction != Direction::LEFT)
+		{
+			current_direction = Direction::RIGHT;
+
+		}
+
 	}
 
 	void SnakeController::updateSnakeDirection()
 	{
+		single_linked_list->updateNodeDirection(current_direction);
 	}
 
 	void SnakeController::moveSnake()
 	{
+		single_linked_list->updateNodePosition();
 	}
 
 	void SnakeController::processSnakeCollision()

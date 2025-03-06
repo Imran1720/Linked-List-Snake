@@ -75,4 +75,32 @@ namespace LinkedList
         current_node->next = new_node;
         new_node->body_part.initialize(node_width,node_height,getNewNodePosition(current_node),current_node->body_part.getDirection());
     }
+
+    void SingleLinkedList::updateNodeDirection(Direction direction_to_set)
+    {
+        Node* current_node = head_node;
+
+        while (current_node != nullptr)
+        {
+            Direction previous_direction = current_node->body_part.getDirection();
+
+            current_node->body_part.setDirection(direction_to_set);
+            direction_to_set = previous_direction;
+            current_node = current_node->next;
+
+        }
+    }
+
+    void SingleLinkedList::updateNodePosition()
+    {
+        Node* current_node = head_node;
+
+        while (current_node->next!=nullptr)
+        {
+            current_node->body_part.updatePosition();
+            current_node = current_node->next;
+        }
+    }
+
+
 }

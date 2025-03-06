@@ -29,5 +29,7 @@ namespace LinkedList
 
 		Vector2i getNewNodePosition(Node* reference);
 		void insertNodeAtTail();
+		void updateNodeDirection(Direction direction_to_set);
+		void updateNodePosition();
 	};
 }

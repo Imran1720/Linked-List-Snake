@@ -57,7 +57,6 @@ namespace Player
 		bodypart_image->setPosition(getBodypartScreenPosition());
 		bodypart_image->setRotation(getRotationAngle());
 		bodypart_image->update();
-		cout << "Body image updated" << endl;
 
 	}
 
