@@ -26,6 +26,8 @@ namespace LinkedList
 
 		void initialize(float width, float height, Vector2i position, Direction direction);
 		void render();
-		void createHeadNode();
+
+		Vector2i getNewNodePosition(Node* reference);
+		void insertNodeAtTail();
 	};
 }

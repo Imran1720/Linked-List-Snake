@@ -53,5 +53,7 @@ namespace Player
 
 		void setSnakeState(SnakeState state);
 		SnakeState getSnakeState();
+
+
 	};
 }
