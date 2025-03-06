@@ -14,7 +14,7 @@ namespace Player
 	SnakeController::SnakeController()
 	{
 		single_linked_list = nullptr;
-
+		current_direction = default_direction;
 		createLinkedList();
 	}
 
@@ -74,13 +74,24 @@ namespace Player
 		return current_snake_state;
 	}
 
+	void SnakeController::delayUpdate()
+	{
+		elapsed_duration += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+		if (elapsed_duration >= movement_frame_duration)
+		{
+			elapsed_duration = 0.f;
+			updateSnakeDirection();
+			//processSnakeCollision();
+			moveSnake();
+		}
+	}
+
 	
 	void SnakeController::processSnakeBehaviour()
 	{
 		processPlayerInput();
-		updateSnakeDirection();
-		processSnakeCollision();
-		moveSnake();
+		delayUpdate();
 
 	}
 

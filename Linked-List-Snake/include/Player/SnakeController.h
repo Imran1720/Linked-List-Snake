@@ -23,6 +23,9 @@ namespace Player
 		const Vector2i default_position = Vector2i(25, 13);
 		const Direction default_direction = Direction::RIGHT;
 		Direction current_direction;
+		float movement_frame_duration = 0.1f;
+		float elapsed_duration = 0.f;
+
 
 		const int initial_snake_length = 10;
 		SnakeState current_snake_state;
@@ -53,6 +56,7 @@ namespace Player
 
 		void setSnakeState(SnakeState state);
 		SnakeState getSnakeState();
+		void delayUpdate();
 
 	};
 }

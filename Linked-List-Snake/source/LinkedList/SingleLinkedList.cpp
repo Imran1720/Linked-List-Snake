@@ -40,21 +40,22 @@ namespace LinkedList
         switch (reference_direction)
         {
         case Direction::UP:
-            return Vector2i(reference_position.x,reference_position.y-1);
-
-        case Direction::DOWN:
             return Vector2i(reference_position.x,reference_position.y+1);
 
+        case Direction::DOWN:
+            return Vector2i(reference_position.x,reference_position.y-1);
+
         case Direction::LEFT:
-            return Vector2i(reference_position.x+1,reference_position.y);
+            return Vector2i(reference_position.x-1,reference_position.y);
 
         case Direction::RIGHT:
-            return Vector2i(reference_position.x-1,reference_position.y);
+            return Vector2i(reference_position.x+1,reference_position.y);
 
         
         }
         return default_position;
     }
+
     void SingleLinkedList::insertNodeAtTail()
     {
         Node* new_node = createNode();
@@ -95,12 +96,21 @@ namespace LinkedList
     {
         Node* current_node = head_node;
 
-        while (current_node->next!=nullptr)
+        while (current_node!=nullptr)
         {
+
+            current_node->body_part.setPosition(getNewNodePosition(current_node));//to be added
             current_node->body_part.updatePosition();
             current_node = current_node->next;
         }
     }
+
+
+    Node* SingleLinkedList::getHead()
+    {
+        return head_node;
+    }
+
 
 
 }

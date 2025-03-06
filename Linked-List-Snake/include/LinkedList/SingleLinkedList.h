@@ -14,7 +14,6 @@ namespace LinkedList
 
 		float node_width;
 		float node_height;
-
 		Vector2i default_position;
 		Direction default_direction;
 
@@ -31,5 +30,7 @@ namespace LinkedList
 		void insertNodeAtTail();
 		void updateNodeDirection(Direction direction_to_set);
 		void updateNodePosition();
+
+		Node* getHead();
 	};
 }

@@ -73,13 +73,13 @@ namespace Player
 		switch (direction)
 		{
 		case Player::Direction::UP:
-			return 0;
+			return 270;
 		case Player::Direction::DOWN:
 			return 90;
 		case Player::Direction::LEFT:
 			return 180;
 		case Player::Direction::RIGHT:
-			return 270;
+			return 0;
 
 		}
 	}
