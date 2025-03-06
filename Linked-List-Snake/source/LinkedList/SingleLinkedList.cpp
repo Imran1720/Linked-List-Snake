@@ -46,10 +46,10 @@ namespace LinkedList
             return Vector2i(reference_position.x,reference_position.y-1);
 
         case Direction::LEFT:
-            return Vector2i(reference_position.x-1,reference_position.y);
+            return Vector2i(reference_position.x+1,reference_position.y);
 
         case Direction::RIGHT:
-            return Vector2i(reference_position.x+1,reference_position.y);
+            return Vector2i(reference_position.x-1,reference_position.y);
 
         
         }
@@ -99,7 +99,7 @@ namespace LinkedList
         while (current_node!=nullptr)
         {
 
-            current_node->body_part.setPosition(getNewNodePosition(current_node));//to be added
+            current_node->body_part.setPosition(current_node->body_part.getNextPosition());//to be added
             current_node->body_part.updatePosition();
             current_node = current_node->next;
         }

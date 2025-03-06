@@ -23,7 +23,7 @@ namespace Level
 	public:
 
 		static const int number_of_rows = 28;
-		static const int number_of_columns = 50;
+		static const int number_of_columns = 51;
 
 		LevelModel();
 		~LevelModel();
