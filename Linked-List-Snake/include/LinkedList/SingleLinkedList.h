@@ -1,0 +1,28 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include "LinkedList/Node.h"
+
+using namespace sf;
+using namespace Player;
+
+namespace LinkedList
+{
+	class SingleLinkedList
+	{
+	private:
+		Node* head_node;
+
+		float node_width;
+		float node_height;
+
+		Vector2i default_position;
+		Direction default_direction;
+
+	public:
+		SingleLinkedList();
+		~SingleLinkedList();
+
+		void initialize(float width, float height, Vector2i position, Direction direction);
+		void render();
+	};
+}

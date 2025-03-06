@@ -46,5 +46,9 @@ namespace Player
 
 		void setPosition(Vector2i position);
 
+		Direction getDirection();
+
+		Vector2i getPosition();
+
 	};
 }
