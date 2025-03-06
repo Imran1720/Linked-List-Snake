@@ -2,6 +2,10 @@
 #include "../../include/Global/Config.h"
 #include "../../include/Level/LevelView.h"
 
+#include <iostream>
+
+using namespace std;
+
 using namespace Level;
 using namespace Global;
 
@@ -15,6 +19,7 @@ namespace Player
 	BodyPart::BodyPart()
 	{
 		grid_position = Vector2i(0,0);
+		createBodyPartImage();
 	}
 
 	BodyPart::~BodyPart()
@@ -39,9 +44,21 @@ namespace Player
 		bodypart_image->setOriginAtCentre();
 	}
 
+	
+
 	void BodyPart::render()
 	{
+
 		bodypart_image->render();
+	}
+
+	void BodyPart::updatePosition()
+	{
+		bodypart_image->setPosition(getBodypartScreenPosition());
+		bodypart_image->setRotation(getRotationAngle());
+		bodypart_image->update();
+		cout << "Body image updated" << endl;
+
 	}
 
 	Vector2f BodyPart::getBodypartScreenPosition()
@@ -73,24 +90,23 @@ namespace Player
 		direction = new_direction;
 	}
 
-	void BodyPart::updatePosition()
-	{
-		bodypart_image->setPosition(getBodypartScreenPosition());
-		bodypart_image->setRotation(getRotationAngle());
-		bodypart_image->update();
-	}
+	
 
-	Vector2i BodyPart::getNextPositionUP()
+	Vector2i BodyPart::getNextPosition()
 	{
 		switch (direction)
 		{
 		case Direction::UP:
+			return getnextPositionUp();
 
 		case Direction::DOWN:
-
+			return getnextPositionDown();
+			
 		case Direction::LEFT:
-
+			return getnextPositionLeft();
+			
 		case Direction::RIGHT:
+			return getnextPositionRight();
 		}
 	}
 

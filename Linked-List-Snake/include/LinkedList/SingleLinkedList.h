@@ -18,11 +18,14 @@ namespace LinkedList
 		Vector2i default_position;
 		Direction default_direction;
 
+		Node* createNode();
+
 	public:
 		SingleLinkedList();
 		~SingleLinkedList();
 
 		void initialize(float width, float height, Vector2i position, Direction direction);
 		void render();
+		void createHeadNode();
 	};
 }

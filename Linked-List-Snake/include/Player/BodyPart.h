@@ -29,7 +29,6 @@ namespace Player
 		void initialize(float width, float height, Vector2i position, Direction moving_directiion);
 		void initializeBodypartImage();
 
-
 		void render();
 		Vector2f getBodypartScreenPosition();
 		float getRotationAngle();
@@ -37,7 +36,7 @@ namespace Player
 
 		void updatePosition();
 
-		Vector2i getNextPositionUP();
+		Vector2i getNextPosition();
 
 		Vector2i getnextPositionUp();
 		Vector2i getnextPositionDown();

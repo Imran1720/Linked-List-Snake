@@ -1,7 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Player/Direction.h"
+#include "LinkedList/SingleLinkedList.h"
 
+using namespace LinkedList;
 using namespace sf;
 
 namespace Player
@@ -25,6 +27,8 @@ namespace Player
 		const int initial_snake_length = 10;
 		SnakeState current_snake_state;
 
+		SingleLinkedList* single_linked_list;
+
 		void processSnakeBehaviour();
 		void processPlayerInput();
 		void updateSnakeDirection();
@@ -32,6 +36,7 @@ namespace Player
 		void processSnakeCollision();
 		void handleRestart();
 
+		void createLinkedList();
 		void destroy();
 
 	public:
