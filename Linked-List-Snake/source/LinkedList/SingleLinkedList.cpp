@@ -105,6 +105,27 @@ namespace LinkedList
         }
     }
 
+    bool SingleLinkedList::processNodeCollision()
+    {
+
+        if (head_node == nullptr) return false;
+
+        Vector2i predicted_position = head_node->body_part.getNextPosition();
+
+        Node* current_node = head_node->next;
+
+        while (current_node != nullptr)
+        {
+            if (current_node->body_part.getNextPosition() == predicted_position)
+            {
+                return true;
+            }
+            current_node = current_node->next;
+        }
+
+        return false;
+    }
+
 
     Node* SingleLinkedList::getHead()
     {
