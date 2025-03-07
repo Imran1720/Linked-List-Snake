@@ -127,6 +127,25 @@ namespace LinkedList
     }
 
 
+    void SingleLinkedList::removeAllHeadNode()
+    {
+        if (head_node == nullptr) return;
+
+        while (head_node!=nullptr)
+        {
+            removeNodeAtHead();
+        }
+        
+    }
+
+    void SingleLinkedList::removeNodeAtHead()
+    {
+        Node* current_node = head_node;
+        head_node = head_node->next;
+        current_node->next = nullptr;
+        delete(current_node);
+    }
+
     Node* SingleLinkedList::getHead()
     {
         return head_node;
