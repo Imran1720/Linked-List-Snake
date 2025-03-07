@@ -33,6 +33,8 @@ namespace LinkedList
 
 		bool processNodeCollision();
 
+		void removeAllHeadNode();
+		void removeNodeAtHead();
 		Node* getHead();
 	};
 }

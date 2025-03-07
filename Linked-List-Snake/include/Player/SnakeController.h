@@ -26,6 +26,9 @@ namespace Player
 		float movement_frame_duration = 0.1f;
 		float elapsed_duration = 0.f;
 
+		const float restart_timer = 2.0f;
+		float timer;
+
 
 		const int initial_snake_length = 10;
 		SnakeState current_snake_state;

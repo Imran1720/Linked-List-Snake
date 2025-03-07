@@ -45,15 +45,25 @@ namespace Player
 
 	void SnakeController::render()
 	{
-		single_linked_list->render();
+		if (current_snake_state == SnakeState::ALIVE)
+		{
+			single_linked_list->render();
+		}
 	}
 
 	void SnakeController::reset()
 	{
+		current_snake_state = SnakeState::ALIVE;
+		current_direction = default_direction;
+		elapsed_duration = 0.f;
+		timer = 0;
 	}
 
 	void SnakeController::respawnSnake()
 	{
+		single_linked_list->removeAllHeadNode();
+		reset();
+		spawnSnake();
 	}
 
 	void SnakeController::spawnSnake()
@@ -140,12 +150,19 @@ namespace Player
 		if (single_linked_list->processNodeCollision())
 		{
 			current_snake_state = SnakeState::DEAD;
+			timer = 0;
 		}
 	}
 
 	void SnakeController::handleRestart()
 	{
-		//cout << "Snake is ddead" << endl;
+		timer += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+		if (timer >= restart_timer)
+		{
+			respawnSnake();
+
+		}
 	}
 
 	void SnakeController::createLinkedList()
