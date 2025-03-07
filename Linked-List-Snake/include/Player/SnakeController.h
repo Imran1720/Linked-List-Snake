@@ -14,6 +14,11 @@ namespace Player
 		DEAD
 	};
 
+	enum class InputState
+	{
+		WAITING,
+		PROCESSING
+	};
 	
 
 	class SnakeController
@@ -32,6 +37,7 @@ namespace Player
 
 		const int initial_snake_length = 10;
 		SnakeState current_snake_state;
+		InputState current_input_state;
 
 		SingleLinkedList* single_linked_list;
 

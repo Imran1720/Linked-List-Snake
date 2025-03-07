@@ -104,13 +104,18 @@ namespace Player
 	
 	void SnakeController::processSnakeBehaviour()
 	{
-		processPlayerInput();
+		if (current_input_state == InputState::WAITING)
+		{
+			processPlayerInput();
+		}
 		delayUpdate();
 
 	}
 
 	void SnakeController::processPlayerInput()
 	{
+		current_input_state = InputState::PROCESSING;
+
 		EventService* event_service = ServiceLocator::getInstance()->getEventService();
 
 		if (event_service->pressedUpArrowKey() && current_direction!=Direction::DOWN)
@@ -132,7 +137,6 @@ namespace Player
 			current_direction = Direction::RIGHT;
 
 		}
-
 	}
 
 	void SnakeController::updateSnakeDirection()
@@ -143,6 +147,8 @@ namespace Player
 	void SnakeController::moveSnake()
 	{
 		single_linked_list->updateNodePosition();
+		current_input_state = InputState::WAITING;
+
 	}
 
 	void SnakeController::processSnakeCollision()
