@@ -54,6 +54,7 @@ namespace Player
 	void SnakeController::reset()
 	{
 		current_snake_state = SnakeState::ALIVE;
+		current_input_state = InputState::WAITING;
 		current_direction = default_direction;
 		elapsed_duration = 0.f;
 		timer = 0;
