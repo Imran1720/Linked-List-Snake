@@ -41,8 +41,8 @@ namespace Level
 
 		//Border: Properties
 		static const int border_thickness = 10;
-		static const int border_offset_left = 37;
-		static const int border_offset_top = 63;
+		static const int border_offset_left = 90;
+		static const int border_offset_top = 90;
 
 		LevelView(LevelController* controller);
 		~LevelView();

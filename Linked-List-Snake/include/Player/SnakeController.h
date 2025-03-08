@@ -25,7 +25,7 @@ namespace Player
 	{
 	private:
 
-		const Vector2i default_position = Vector2i(25, 13);
+		const Vector2i default_position = Vector2i(14, 25);
 		const Direction default_direction = Direction::RIGHT;
 		Direction current_direction;
 		float movement_frame_duration = 0.1f;

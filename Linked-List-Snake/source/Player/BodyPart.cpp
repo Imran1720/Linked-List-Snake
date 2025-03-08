@@ -63,8 +63,8 @@ namespace Player
 
 	Vector2f BodyPart::getBodypartScreenPosition()
 	{
-		float xPosition = LevelView::border_offset_left + (grid_position.x * bodypart_width) + (bodypart_width / 2);
-		float yPosition = LevelView::border_offset_top + (grid_position.y * bodypart_height) + (bodypart_height / 2);
+		float xPosition = LevelView::border_offset_top+ (grid_position.x * bodypart_width) + (bodypart_width / 2);
+		float yPosition = LevelView::border_offset_left + (grid_position.y * bodypart_height) + (bodypart_height / 2);
 
 		return Vector2f(xPosition,yPosition);
 	}
