@@ -1,5 +1,8 @@
 #pragma once
-
+#include <vector>
+#include "Element/ElementData.h"
+using namespace std;
+using namespace Element;
 namespace Level
 {
 	class LevelModel;
@@ -23,5 +26,7 @@ namespace Level
 
 		float getCellWidth();
 		float getCellHeight();
+
+		const vector<ElementData>& getElementDataList(int level_to_load);
 	};
 }

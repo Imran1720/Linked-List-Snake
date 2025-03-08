@@ -6,6 +6,7 @@
 #include "Time/TimeService.h"
 #include "Level/LevelService.h"
 #include "Player/PlayerService.h"
+#include "Element/ElementService.h"
 
 using namespace Graphics;
 using namespace UI;
@@ -14,6 +15,7 @@ using namespace Event;
 using namespace Sound;
 using namespace Time;
 using namespace Player;
+using namespace Element;
 
 
 namespace Global
@@ -28,6 +30,7 @@ namespace Global
         TimeService* time_service;
         LevelService* level_service;
         PlayerService* player_service;
+        ElementService* element_service;
 
         ServiceLocator();
         ~ServiceLocator();
@@ -49,6 +52,7 @@ namespace Global
         TimeService* getTimeService();
         LevelService* getLevelService();
         PlayerService* getPlayerService();
+        ElementService* getElementService();
         void deleteServiceLocator();
     };
 }

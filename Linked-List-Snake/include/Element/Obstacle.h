@@ -16,7 +16,8 @@ namespace Element
 		float cell_width;
 		float cell_height;
 
-
+		void initializeObstacleImage();
+		Vector2f getObstacleScreenPosition();
 		void destroy();
 
 	public:

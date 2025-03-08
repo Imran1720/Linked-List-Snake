@@ -11,10 +11,12 @@ namespace Element
 	
 	Obstacle::Obstacle()
 	{
+		obstacle_image = new ImageView();
 	}
 
 	Obstacle::~Obstacle()
 	{
+		destroy();
 	}
 
 	void Obstacle::initialize(Vector2i position, float width, float height)
