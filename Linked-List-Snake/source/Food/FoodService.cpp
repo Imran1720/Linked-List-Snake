@@ -21,13 +21,19 @@ namespace Food
 	}
 	void FoodService::initialize()
 	{
+		elapsed_time = spawn_duration;
 	}
 	void FoodService::update()
 	{
+		if (current_spawn_status == FoodSpawningStatus::ACTIVE)
+		{
+			updateElapsedDuration();
+			handleFoodSpawn();
+		}
+
 		if (current_food_item)
 		{
 			current_food_item->update();
-
 		}
 	}
 	void FoodService::render()
@@ -40,10 +46,18 @@ namespace Food
 
 	void FoodService::startFoodSpawning()
 	{
+		current_spawn_status = FoodSpawningStatus::ACTIVE;
 		cell_width = ServiceLocator::getInstance()->getLevelService()->getCellWidth() ;
 		cell_height = ServiceLocator::getInstance()->getLevelService()->getCellHeight();
 
 		spawnFood();
+	}
+
+	void FoodService::stopFoodSpawning()
+	{
+		current_spawn_status = FoodSpawningStatus::IN_ACTIVE;
+		destroyFood();
+		reset();
 	}
 
 	bool FoodService::isValidPosition(Vector2i random_position)
@@ -113,7 +127,21 @@ namespace Food
 		delete(current_food_item);
 		}
 	}
+	void FoodService::updateElapsedDuration()
+	{
+		elapsed_time += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+	}
+	void FoodService::handleFoodSpawn()
+	{
+		if (elapsed_time >= spawn_duration)
+		{
+			destroyFood();
+			reset();
+			spawnFood();
+		}
+	}
 	void FoodService::reset()
 	{
+		elapsed_time = 0;
 	}
 }

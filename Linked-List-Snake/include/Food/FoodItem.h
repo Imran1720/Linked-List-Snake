@@ -21,6 +21,7 @@ namespace Food
 		void createFoodImage();
 		Vector2f getFoodScreenPosition(Vector2i position);
 		String getFoodTexturePath();
+		
 		void destroy();
 
 	public:

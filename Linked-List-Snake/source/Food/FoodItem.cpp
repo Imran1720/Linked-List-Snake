@@ -55,6 +55,7 @@ namespace Food
 
 	Vector2f FoodItem::getFoodScreenPosition(Vector2i position)
 	{
+		//problem
 		float food_position_x = LevelView::border_offset_top + (position.x * food_height);
 		float food_position_y = LevelView::border_offset_left + (position.y * food_width);
 
