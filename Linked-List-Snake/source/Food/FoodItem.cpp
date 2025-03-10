@@ -9,13 +9,19 @@ namespace Food
 {
 	
 	
-	FoodItem::FoodItem() = default;
+	FoodItem::FoodItem()
+	{
+		food_image = new ImageView();
+
+	}
 	
-	FoodItem::~FoodItem() = default;
+	FoodItem::~FoodItem()
+	{
+		destroy();
+	}
 
 	void FoodItem::initialize(Vector2i position, float width, float height, FoodType type)
 	{
-		food_image = nullptr;
 		food_type = type;
 		food_width = width;
 		food_height = height;
@@ -41,9 +47,6 @@ namespace Food
 
 	void FoodItem::createFoodImage()
 	{
-		
-
-		
 		food_image->initialize(getFoodTexturePath(), food_width, food_height, getFoodScreenPosition(grid_position));
 		food_image->show();
 	}

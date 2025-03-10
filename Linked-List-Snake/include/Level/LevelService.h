@@ -27,6 +27,7 @@ namespace Level
 		float getCellWidth();
 		float getCellHeight();
 
+		void spawnFood();
 		void spawnLevelElements(LevelNumber level_to_load);
 	};
 }
