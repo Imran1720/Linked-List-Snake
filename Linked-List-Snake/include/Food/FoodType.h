@@ -5,7 +5,7 @@ namespace Food
 
 	enum class FoodType
 	{
-        APPLE,
+        APPLE=0,
         MANGO,
         ORANGE,
         PIZZA,

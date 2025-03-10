@@ -43,4 +43,15 @@ namespace Element
 			}
 		}
 	}
+	vector<Vector2i> ElementService::getElementPositionList()
+	{
+		vector<Vector2i> element_position_list;
+
+		for (int i = 0; i < obstale_list.size(); i++)
+		{
+			element_position_list.push_back(obstale_list[i]->getObstaclePosition());
+		}
+		return element_position_list;
+	}
+	
 }

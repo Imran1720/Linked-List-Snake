@@ -25,5 +25,8 @@ namespace Element
 		void spawnObstacle(Vector2i position, float width, float heoght);
 
 		const void spawnElement(vector <ElementData>& element_data_list, float width, float heoght);
+
+		vector<Vector2i> getElementPositionList();
+
 	};
 }

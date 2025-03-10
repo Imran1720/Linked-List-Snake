@@ -1,7 +1,9 @@
 #include "../../include/Food/FoodItem.h"
 #include "../../include/Global/Config.h"
 #include "../../include/Level/LevelView.h"
+#include <iostream>
 
+using namespace std;
 using namespace Global;
 using namespace Level;
 
@@ -67,19 +69,19 @@ namespace Food
 			return Config::apple_texture_path;
 
 		case Food::FoodType::MANGO:
-			return Config::mango_texture_path;     
+			return Config::mango_texture_path;
 
 		case Food::FoodType::ORANGE:
-			return Config::mango_texture_path;     
+			return Config::mango_texture_path;
 
 		case Food::FoodType::PIZZA:
-			return Config::pizza_texture_path;     
+			return Config::pizza_texture_path;
 
 		case Food::FoodType::BURGER:
-			return Config::burger_texture_path;     
+			return Config::burger_texture_path;
 
 		case Food::FoodType::CHEESE:
-			return Config::cheese_texture_path;     
+			return Config::cheese_texture_path;
 
 		case Food::FoodType::POISION:
 			return Config::poision_texture_path;

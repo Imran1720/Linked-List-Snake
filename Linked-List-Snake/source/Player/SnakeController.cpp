@@ -102,6 +102,11 @@ namespace Player
 		}
 	}
 
+	vector<Vector2i> SnakeController::getSnakePositionList()
+	{
+		return single_linked_list->getNodePositionList();
+	}
+
 	
 	void SnakeController::processSnakeBehaviour()
 	{

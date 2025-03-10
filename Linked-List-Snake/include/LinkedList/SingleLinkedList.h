@@ -1,8 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "LinkedList/Node.h"
+#include <vector>
+
 
 using namespace sf;
+using namespace std;
 using namespace Player;
 
 namespace LinkedList
@@ -35,6 +38,7 @@ namespace LinkedList
 
 		void removeAllHeadNode();
 		void removeNodeAtHead();
+		vector<Vector2i> getNodePositionList();
 		Node* getHead();
 	};
 }

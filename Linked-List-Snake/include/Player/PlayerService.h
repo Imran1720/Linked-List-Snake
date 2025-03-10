@@ -1,5 +1,8 @@
 #pragma once
-
+#include "SFML/Graphics.hpp"
+#include <vector>
+using namespace sf;
+using namespace std;
 namespace Player
 {
 	class SnakeController;
@@ -20,6 +23,7 @@ namespace Player
 
 		void createController();
 		void spawnPlayer();
+		vector<Vector2i> getSnakePositionList();
 
 	};
 }
