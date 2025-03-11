@@ -3,6 +3,10 @@
 #include "../../include/Level/LevelModel.h"
 #include "../../include/Global/ServiceLocator.h"
 #include "SFML/Graphics.hpp"
+
+#include <iostream>
+using namespace std;
+
 using namespace Global;
 using namespace sf;
 using namespace Level;
@@ -67,7 +71,7 @@ namespace Food
 		
 		for (int i = 0; i < obstacle_position_list.size(); i++)
 		{
-			if (random_position == obstacle_position_list[i])
+			if (getFoodPosition(random_position) == obstacle_position_list[i])
 			{
 				return false;
 			}
@@ -75,7 +79,7 @@ namespace Food
 
 		for (int i = 0; i < snake_position_list.size(); i++)
 		{
-			if (random_position == snake_position_list[i])
+			if (getFoodPosition(random_position) == snake_position_list[i])
 			{
 				return false;
 			}
@@ -83,6 +87,26 @@ namespace Food
 
 		return true;
 	}
+
+	bool FoodService::processFoodCollision(Node* head_node, FoodType& out_food_type)
+	{
+		
+		if (current_food_item && getFoodPosition(current_food_item->getFoodPosition()) == head_node->body_part.getPosition())
+		{
+			out_food_type = current_food_item->getFoodType();
+			return true;
+		}
+
+		return false;
+	}
+
+	Vector2i FoodService::getFoodPosition(Vector2i position)
+	{
+
+		return Vector2i(position.y,position.x);
+	}
+
+	
 
 	FoodItem* FoodService::createFoodItem(Vector2i position, FoodType type)
 	{
@@ -94,11 +118,11 @@ namespace Food
 
 	Vector2i FoodService::getRandomPosition()
 	{
-		uniform_int_distribution<int> x_distribution(0, LevelModel::number_of_columns - 1);
-		uniform_int_distribution<int> y_distribution(0, LevelModel::number_of_rows -1);
+		uniform_int_distribution<int> x_distribution(0, LevelModel::number_of_rows - 1);
+		uniform_int_distribution<int> y_distribution(0, LevelModel::number_of_columns -1);
 		int xPosition = x_distribution(random_engine);
 		int yPosition = y_distribution(random_engine);
-		Vector2i random_position = Vector2i(xPosition, yPosition);
+		Vector2i random_position = Vector2i( xPosition, yPosition);
 
 		if (!isValidPosition(random_position))
 		{

@@ -20,6 +20,7 @@ namespace LinkedList
     void SingleLinkedList::render()
     {
         Node* current_node = head_node;
+
         while (current_node->next != nullptr)
         {
             current_node->body_part.render();

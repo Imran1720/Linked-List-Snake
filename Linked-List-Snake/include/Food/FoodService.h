@@ -1,8 +1,11 @@
 #pragma once
 #include "../../include/Food/FoodItem.h"
+#include "../../include/LinkedList/SingleLinkedList.h"
+
 #include <random>
 
 using namespace std;
+using namespace LinkedList;
 
 namespace Food
 {
@@ -47,6 +50,9 @@ namespace Food
 			void startFoodSpawning();
 			void stopFoodSpawning();
 			bool isValidPosition(Vector2i random_position);
+			bool processFoodCollision(Node* head_node,FoodType& out_food_type);
+
+			Vector2i getFoodPosition(Vector2i position);
 
 
 	};

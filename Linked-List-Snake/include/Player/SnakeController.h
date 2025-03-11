@@ -1,12 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Player/Direction.h"
+#include "Food/FoodType.h"
 #include "LinkedList/SingleLinkedList.h"
 #include <vector>
 
 using namespace std;
 using namespace LinkedList;
 using namespace sf;
+using namespace Food;
 
 namespace Player
 {
@@ -27,7 +29,7 @@ namespace Player
 	{
 	private:
 
-		const Vector2i default_position = Vector2i(14, 25);
+		const Vector2i default_position = Vector2i(25, 13);
 		const Direction default_direction = Direction::RIGHT;
 		Direction current_direction;
 		float movement_frame_duration = 0.1f;
@@ -49,6 +51,12 @@ namespace Player
 		void moveSnake();
 		void processSnakeCollision();
 		void handleRestart();
+
+		void processBodyCollision();
+		void processElementCollision();
+		void processFoodCollision();
+
+		void onFoodCollected(FoodType food_type);
 
 		void createLinkedList();
 		void destroy();

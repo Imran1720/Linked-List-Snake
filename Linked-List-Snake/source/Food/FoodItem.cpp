@@ -47,6 +47,11 @@ namespace Food
 		return food_type;
 	}
 
+	Vector2i FoodItem::getFoodPosition()
+	{
+		return grid_position;
+	}
+
 	void FoodItem::createFoodImage()
 	{
 		food_image->initialize(getFoodTexturePath(), food_width, food_height, getFoodScreenPosition(grid_position));
@@ -59,7 +64,7 @@ namespace Food
 		float food_position_x = LevelView::border_offset_top + (position.x * food_height);
 		float food_position_y = LevelView::border_offset_left + (position.y * food_width);
 
-		return Vector2f(food_position_x,food_position_y);
+		return Vector2f(food_position_y,food_position_x);
 	}
 
 	String FoodItem::getFoodTexturePath()

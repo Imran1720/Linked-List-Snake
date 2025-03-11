@@ -33,5 +33,6 @@ namespace Food
 		void render();
 
 		FoodType getFoodType();
+		Vector2i getFoodPosition();
 	};
 }

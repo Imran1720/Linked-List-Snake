@@ -188,10 +188,47 @@ namespace Player
 
 	void SnakeController::processElementCollision()
 	{
+		if (ServiceLocator::getInstance()->getElementService()->processElementCollision(single_linked_list->getHead()))
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
+			current_snake_state = SnakeState::DEAD;
+		}
 	}
 
 	void SnakeController::processFoodCollision()
 	{
+		FoodType food_type;
+
+		if (ServiceLocator::getInstance()->getFoodService()->processFoodCollision(single_linked_list->getHead(), food_type))
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::PICKUP);
+
+		}
+	}
+
+	void SnakeController::onFoodCollected(FoodType food_type)
+	{
+		switch (food_type)
+		{
+		case Food::FoodType::APPLE:
+			break;
+		case Food::FoodType::MANGO:
+			break;
+		case Food::FoodType::ORANGE:
+			break;
+		case Food::FoodType::PIZZA:
+			break;
+		case Food::FoodType::BURGER:
+			break;
+		case Food::FoodType::CHEESE:
+			break;
+		case Food::FoodType::POISION:
+			break;
+		case Food::FoodType::ALCOHOL:
+			break;
+		default:
+			break;
+		}
 	}
 
 	void SnakeController::createLinkedList()

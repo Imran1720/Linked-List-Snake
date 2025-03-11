@@ -57,27 +57,27 @@ namespace Global
 		ui_service->update();
 		time_service->update();
 
-		/*if (GameService::getGameState() == GameState::GAMEPLAY)
-		{*/
+		if (GameService::getGameState() == GameState::GAMEPLAY)
+		{
 			level_service->update();
 			element_service->update();
 			player_service->update();
 			food_service->update();
 
-		/*}*/
+		}
 	}
 
 	void ServiceLocator::render()
 	{
 		graphic_service->render();
 
-		/*if (GameService::getGameState() == GameState::GAMEPLAY)
-		{*/
+		if (GameService::getGameState() == GameState::GAMEPLAY)
+		{
 			level_service->render();
 			player_service->render();
 			element_service->render();
 			food_service->render();
-		/*}*/
+		}
 
 		ui_service->render();
 	}
