@@ -1,6 +1,7 @@
 #include "../../include/Player/SnakeController.h"
 #include "../../include/Global/ServiceLocator.h"
 #include "../../include/Event/EventService.h"
+#include "../../include/Global/Config.h"
 
 #include <iostream>
 using namespace std;
@@ -159,11 +160,9 @@ namespace Player
 
 	void SnakeController::processSnakeCollision()
 	{
-		if (single_linked_list->processNodeCollision())
-		{
-			current_snake_state = SnakeState::DEAD;
-			timer = 0;
-		}
+		processBodyCollision();
+		processElementCollision();
+		processFoodCollision();
 	}
 
 	void SnakeController::handleRestart()
@@ -175,6 +174,24 @@ namespace Player
 			respawnSnake();
 
 		}
+	}
+
+	void SnakeController::processBodyCollision()
+	{
+		if (single_linked_list->processNodeCollision())
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
+			current_snake_state = SnakeState::DEAD;
+			timer = 0;
+		}
+	}
+
+	void SnakeController::processElementCollision()
+	{
+	}
+
+	void SnakeController::processFoodCollision()
+	{
 	}
 
 	void SnakeController::createLinkedList()
