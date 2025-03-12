@@ -28,14 +28,27 @@ namespace LinkedList
         }
     }
 
+    void SingleLinkedList::initializeNode(Node* new_node, Node* reference_node, Operation operation)
+    {
+        if (reference_node == nullptr)
+        {
+            new_node->body_part.initialize(node_width, node_height, default_position, default_direction);
+            return;
+        }
+
+        Vector2i new_position = getNewNodePosition(reference_node, operation);
+
+        new_node->body_part.initialize(node_width,node_height,new_position,reference_node->body_part.getDirection());
+    }
+
     Node* SingleLinkedList::createNode()
     {
         return new Node();
     }
 
-    Vector2i SingleLinkedList::getNewNodePosition(Node* reference)
+    Vector2i SingleLinkedList::getNewNodePosition(Node* reference,Operation operation)
     {
-        Direction reference_direction = reference->body_part.getDirection();
+       /* Direction reference_direction = reference->body_part.getDirection();
         Vector2i reference_position = reference->body_part.getPosition();
 
         switch (reference_direction)
@@ -53,7 +66,19 @@ namespace LinkedList
             return Vector2i(reference_position.x-1,reference_position.y);
 
         
+        }*/
+
+        switch (operation)
+        {
+        case LinkedList::Operation::HEAD:
+            reference->body_part.getNextPosition();
+            break;
+        case LinkedList::Operation::TAIL:
+            reference->body_part.getPreviousPosition();
+            break;
+       
         }
+
         return default_position;
     }
 
@@ -75,7 +100,7 @@ namespace LinkedList
         }
 
         current_node->next = new_node;
-        new_node->body_part.initialize(node_width,node_height,getNewNodePosition(current_node),current_node->body_part.getDirection());
+        new_node->body_part.initialize(node_width,node_height,getNewNodePosition(current_node,Operation::TAIL),current_node->body_part.getDirection());
     }
 
     void SingleLinkedList::updateNodeDirection(Direction direction_to_set)

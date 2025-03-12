@@ -40,6 +40,7 @@ namespace Player
 		}
 		else
 		{
+
 			handleRestart();
 		}
 	}
@@ -167,6 +168,8 @@ namespace Player
 
 	void SnakeController::handleRestart()
 	{
+		//ServiceLocator::getInstance()->getFoodService()->stopFoodSpawning();
+
 		timer += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
 		if (timer >= restart_timer)
@@ -202,7 +205,8 @@ namespace Player
 		if (ServiceLocator::getInstance()->getFoodService()->processFoodCollision(single_linked_list->getHead(), food_type))
 		{
 			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::PICKUP);
-
+			ServiceLocator::getInstance()->getFoodService()->destroyFood();
+			ServiceLocator::getInstance()->getFoodService()->spawnFood();
 		}
 	}
 

@@ -10,6 +10,12 @@ using namespace Player;
 
 namespace LinkedList
 {
+	enum class Operation
+	{
+		HEAD,
+		MID,
+		TAIL,
+	};
 	class SingleLinkedList
 	{
 	private:
@@ -30,7 +36,9 @@ namespace LinkedList
 		void initialize(float width, float height, Vector2i position, Direction direction);
 		void render();
 
-		Vector2i getNewNodePosition(Node* reference);
+		void initializeNode(Node* new_node,Node* reference_node,Operation operation);
+
+		Vector2i getNewNodePosition(Node* reference,Operation operation);
 		void insertNodeAtTail();
 		void updateNodeDirection(Direction direction_to_set);
 		void updateNodePosition();
@@ -41,5 +49,7 @@ namespace LinkedList
 		void removeNodeAtHead();
 		vector<Vector2i> getNodePositionList();
 		Node* getHead();
+
+
 	};
 }

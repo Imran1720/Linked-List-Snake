@@ -110,6 +110,27 @@ namespace Player
 		}
 	}
 
+	Vector2i BodyPart::getPreviousPosition()
+	{
+		switch (direction)
+		{
+		case Direction::UP:
+			return getnextPositionDown();
+
+		case Direction::DOWN:
+			return getnextPositionUp();
+
+		case Direction::LEFT:
+			return getnextPositionRight();
+
+		case Direction::RIGHT:
+			return getnextPositionLeft();
+		default:
+			return grid_position;
+		}
+	}
+
+
 	Vector2i BodyPart::getnextPositionUp()
 	{
 		return Vector2i(grid_position.x,(grid_position.y-1 + LevelModel::number_of_rows )% (LevelModel::number_of_rows));

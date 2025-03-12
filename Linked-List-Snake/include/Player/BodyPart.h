@@ -38,6 +38,8 @@ namespace Player
 
 		Vector2i getNextPosition();
 
+		Vector2i getPreviousPosition();
+
 		Vector2i getnextPositionUp();
 		Vector2i getnextPositionDown();
 		Vector2i getnextPositionLeft();

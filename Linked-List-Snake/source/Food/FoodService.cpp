@@ -148,7 +148,7 @@ namespace Food
 	{
 		if (current_food_item)
 		{
-		delete(current_food_item);
+			delete(current_food_item);
 		}
 	}
 	void FoodService::updateElapsedDuration()

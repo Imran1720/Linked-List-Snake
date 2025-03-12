@@ -33,8 +33,6 @@ namespace Food
 			FoodItem* createFoodItem(Vector2i position, FoodType type);
 			Vector2i getRandomPosition();
 			FoodType getRandomFoodType();
-			void spawnFood();
-			void destroyFood();
 			void updateElapsedDuration();
 			void handleFoodSpawn();
 			void reset();
@@ -47,13 +45,14 @@ namespace Food
 			void update();
 			void render();
 
+			void spawnFood();
 			void startFoodSpawning();
 			void stopFoodSpawning();
 			bool isValidPosition(Vector2i random_position);
 			bool processFoodCollision(Node* head_node,FoodType& out_food_type);
 
+			void destroyFood();
 			Vector2i getFoodPosition(Vector2i position);
-
 
 	};
 }
