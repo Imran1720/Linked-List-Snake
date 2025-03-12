@@ -164,6 +164,21 @@ namespace LinkedList
         shiftNodeAfterInsertion(new_node, current_node, previous_node);
     }
 
+    void SingleLinkedList::insertNodeAtMiddle()
+    {
+        Node* new_node = createNode();
+        Node* current_node = head_node;
+
+        if (current_node == nullptr)
+        {
+            insertNodeAtHead();
+            return;
+        }
+
+        int middle_index = findMiddleIndex();
+        insertNodeAtIndex(middle_index);
+    }
+
     void SingleLinkedList::shiftNodeAfterInsertion(Node* new_node, Node* current_node, Node* previous_node)
     {
         Node* next_node = current_node;
@@ -180,6 +195,23 @@ namespace LinkedList
         }
 
         initializeNode(current_node,previous_node,Operation::TAIL);
+    }
+
+    int SingleLinkedList::findMiddleIndex()
+    {
+        int current_index = 0;
+
+        Node* slow_node = head_node;
+        Node* fast_Node = head_node;
+
+        while (fast_Node != nullptr && fast_Node->next != nullptr)
+        {
+            slow_node = slow_node->next;
+            fast_Node = fast_Node->next->next;
+            current_index++;
+        }
+
+        return current_index;
     }
 
     void SingleLinkedList::updateNodeDirection(Direction direction_to_set)

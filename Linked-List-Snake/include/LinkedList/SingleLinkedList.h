@@ -47,7 +47,10 @@ namespace LinkedList
 		void insertNodeAtTail();
 		void insertNodeAtHead();
 		void insertNodeAtIndex(int index);
+		void insertNodeAtMiddle();
 
+		void shiftNodeAfterInsertion(Node* new_node,Node* current_node,Node* previous_node);
+		int findMiddleIndex();
 		bool processNodeCollision();
 
 		void removeAllHeadNode();
