@@ -41,9 +41,12 @@ namespace LinkedList
 		void initializeNode(Node* new_node,Node* reference_node,Operation operation);
 
 		Vector2i getNewNodePosition(Node* reference,Operation operation);
-		void insertNodeAtTail();
 		void updateNodeDirection(Direction direction_to_set);
 		void updateNodePosition();
+
+		void insertNodeAtTail();
+		void insertNodeAtHead();
+		void insertNodeAtIndex(int index);
 
 		bool processNodeCollision();
 
