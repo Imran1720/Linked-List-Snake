@@ -179,6 +179,16 @@ namespace LinkedList
         insertNodeAtIndex(middle_index);
     }
 
+    void SingleLinkedList::insertNodeAt(int index)
+    {
+        if (index < 0 && index >= linked_list_size)
+        {
+            return;
+        }
+
+        insertNodeAtIndex(index);
+    }
+
     void SingleLinkedList::shiftNodeAfterInsertion(Node* new_node, Node* current_node, Node* previous_node)
     {
         Node* next_node = current_node;
@@ -195,6 +205,69 @@ namespace LinkedList
         }
 
         initializeNode(current_node,previous_node,Operation::TAIL);
+    }
+
+    void SingleLinkedList::shiftNodesAfterRemoval(Node* cur_node)
+    {
+        if (cur_node == nullptr)
+            return;
+        Node* previous_node = cur_node;
+        cur_node = cur_node->next;
+
+        Vector2i previous_position;
+        Direction previous_direction;
+
+        while (cur_node != nullptr)
+        {
+            previous_position = previous_node->body_part.getPosition();
+            previous_direction = previous_node->body_part.getDirection();
+
+            cur_node->body_part.setPosition(previous_position);
+            cur_node->body_part.setDirection(previous_direction);
+
+            previous_node = cur_node;
+            cur_node = cur_node->next;
+        }
+    }
+
+    void SingleLinkedList::removeNodeAtIndex(int index)
+    {
+        int current_index = 0;
+        Node* current_node = head_node;
+        Node* previous_node = nullptr;
+
+        while (current_node != nullptr && current_index <= index)
+        {
+            previous_node = current_node;
+            current_node = current_node->next;
+            current_index++;
+        }
+        
+        previous_node->next = current_node->next;
+        shiftNodesAfterRemoval(current_node);
+        delete(current_node);
+
+    }
+
+    void SingleLinkedList::removeNodeAt(int index)
+    {
+        if (index < 0 && index >= linked_list_size)
+        {
+            return;
+        }
+        removeNodeAtIndex(index);
+    }
+
+    void SingleLinkedList::removeNodeAtMiddle()
+    {
+        if (head_node == nullptr)
+        {
+            return;
+        }
+
+        int index = findMiddleIndex();
+
+        removeNodeAtIndex(index);
     }
 
     int SingleLinkedList::findMiddleIndex()

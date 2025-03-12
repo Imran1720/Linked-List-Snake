@@ -43,18 +43,27 @@ namespace LinkedList
 		Vector2i getNewNodePosition(Node* reference,Operation operation);
 		void updateNodeDirection(Direction direction_to_set);
 		void updateNodePosition();
+		bool processNodeCollision();
 
 		void insertNodeAtTail();
 		void insertNodeAtHead();
 		void insertNodeAtIndex(int index);
 		void insertNodeAtMiddle();
+		void insertNodeAt(int index);
 
 		void shiftNodeAfterInsertion(Node* new_node,Node* current_node,Node* previous_node);
+		void shiftNodesAfterRemoval(Node* cur_node);
+
+
 		int findMiddleIndex();
-		bool processNodeCollision();
 
 		void removeAllHeadNode();
 		void removeNodeAtHead();
+		void removeNodeAtIndex(int index);
+		void removeNodeAt(int index);
+		void removeNodeAtMiddle();
+
+
 		vector<Vector2i> getNodePositionList();
 		Node* getHead();
 
