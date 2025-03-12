@@ -281,6 +281,7 @@ namespace LinkedList
         head_node = head_node->next;
         current_node->next = nullptr;
         delete(current_node);
+        linked_list_size--;
     }
 
     vector<Vector2i> SingleLinkedList::getNodePositionList()
