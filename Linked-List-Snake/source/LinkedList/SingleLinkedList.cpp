@@ -85,13 +85,14 @@ namespace LinkedList
 
     void SingleLinkedList::insertNodeAtTail()
     {
+        linked_list_size++;
         Node* new_node = createNode();
         Node* current_node = head_node;
 
         if (current_node == nullptr)
         {
             head_node = new_node;
-            new_node->body_part.initialize(node_width, node_height, default_position, default_direction);
+            initializeNode(new_node, current_node, Operation::TAIL);
             return;
         }
 
