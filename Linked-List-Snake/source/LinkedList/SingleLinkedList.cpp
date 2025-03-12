@@ -162,6 +162,7 @@ namespace LinkedList
         initializeNode(new_node,previous_node,Operation::TAIL);
 
         shiftNodeAfterInsertion(new_node, current_node, previous_node);
+        linked_list_size++;
     }
 
     void SingleLinkedList::insertNodeAtMiddle()
@@ -246,7 +247,7 @@ namespace LinkedList
         previous_node->next = current_node->next;
         shiftNodesAfterRemoval(current_node);
         delete(current_node);
-
+        linked_list_size--;
     }
 
     void SingleLinkedList::removeNodeAt(int index)
@@ -268,6 +269,35 @@ namespace LinkedList
         int index = findMiddleIndex();
 
         removeNodeAtIndex(index);
+    }
+
+    void SingleLinkedList::removeNodeAtTail()
+    {
+        if (head_node == nullptr)
+        {
+            return;
+        }
+            linked_list_size--;
+
+        if (head_node->next == nullptr)
+        {
+            removeNodeAtHead();
+            return;
+        }
+
+        Node* previous_node = nullptr;
+        Node* currentNode = head_node;
+
+        while (currentNode != nullptr)
+        {
+            previous_node = currentNode;
+            currentNode = currentNode->next;
+        }
+
+        previous_node->next = nullptr;
+        currentNode->next = nullptr;
+        delete(currentNode);
+
     }
 
     int SingleLinkedList::findMiddleIndex()
