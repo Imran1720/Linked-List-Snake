@@ -300,6 +300,43 @@ namespace LinkedList
 
     }
 
+    Node* SingleLinkedList::findNodeAtIndex(int index)
+    {
+        int current_index = 0;
+        Node* current_node = head_node;
+
+        if (current_node == nullptr) return nullptr;
+
+        while (current_node != nullptr && current_index < index)
+        {
+            current_node = current_node->next;
+            current_index++;
+        }
+        return current_node;
+    }
+
+    void SingleLinkedList::removeHalfNodes()
+    {
+        if (linked_list_size <= 1) return;
+        int half_length = linked_list_size / 2;
+        int new_tail_index = half_length - 1;
+
+        Node* previous_node = findNodeAtIndex(new_tail_index);
+        Node* current_node = previous_node->next;
+        previous_node->next = nullptr;
+
+        while (current_node != nullptr)
+        {
+            Node* node_to_delete = current_node;
+            current_node = current_node->next;
+
+            node_to_delete->next = nullptr;
+            delete(node_to_delete);
+            linked_list_size--;
+        }
+    }
+
+
     int SingleLinkedList::findMiddleIndex()
     {
         int current_index = 0;
