@@ -27,6 +27,8 @@ namespace LinkedList
 		Vector2i default_position;
 		Direction default_direction;
 
+		int linked_list_size;
+
 		Node* createNode();
 
 	public:
