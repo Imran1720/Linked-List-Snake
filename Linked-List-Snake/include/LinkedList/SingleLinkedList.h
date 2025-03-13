@@ -3,10 +3,8 @@
 #include "LinkedList/Node.h"
 #include <vector>
 
-
 using namespace sf;
 using namespace std;
-using namespace Player;
 
 namespace LinkedList
 {
@@ -16,10 +14,34 @@ namespace LinkedList
 		MID,
 		TAIL,
 	};
+	enum class TimeComplexity
+	{
+		NONE,
+		ONE,
+		N,
+	};
+
+	enum class LinkedListOperations
+	{
+		NONE,
+		INSERT_AT_HEAD,
+		INSERT_AT_TAIL,
+		INSERT_AT_MID,
+		REMOVE_AT_HEAD,
+		REMOVE_AT_TAIL,
+		REMOVE_AT_MID,
+		DELETE_HALF_LIST,
+		REVERSE_LIST,
+	};
+
+
 	class SingleLinkedList
 	{
 	private:
 		Node* head_node;
+
+		LinkedListOperations current_linked_list_operation;
+		TimeComplexity current_time_complexity;
 
 		float node_width;
 		float node_height;
@@ -39,6 +61,8 @@ namespace LinkedList
 		void render();
 
 		void initializeNode(Node* new_node,Node* reference_node,Operation operation);
+
+		int getListSize();
 
 		Vector2i getNewNodePosition(Node* reference,Operation operation);
 		void updateNodeDirection(Direction direction_to_set);
@@ -65,13 +89,14 @@ namespace LinkedList
 		void removeNodeAtTail();
 		Node* findNodeAtIndex(int index);
 		void removeHalfNodes();
-
+		
 		Direction reverse();
 		void reverseNodeDirection();
 
 		Direction getReverseDirection(Direction reference_direction);
 
-
+		TimeComplexity getCurrentTimeComplexity();
+		LinkedListOperations getCurrentLinkedListOperation();
 		vector<Vector2i> getNodePositionList();
 		Node* getHead();
 

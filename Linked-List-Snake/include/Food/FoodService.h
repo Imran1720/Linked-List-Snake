@@ -23,7 +23,7 @@ namespace Food
 			float cell_height;
 			
 			FoodSpawningStatus current_spawn_status;
-			const float spawn_duration = 4.0f;
+			const float spawn_duration = 6.0f;
 			float elapsed_time;
 
 			default_random_engine random_engine;

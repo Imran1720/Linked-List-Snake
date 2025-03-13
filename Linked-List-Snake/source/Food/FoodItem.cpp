@@ -78,7 +78,7 @@ namespace Food
 			return Config::mango_texture_path;
 
 		case Food::FoodType::ORANGE:
-			return Config::mango_texture_path;
+			return Config::orange_texture_path;
 
 		case Food::FoodType::PIZZA:
 			return Config::pizza_texture_path;

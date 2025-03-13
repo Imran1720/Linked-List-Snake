@@ -2,11 +2,13 @@
 #include "../../include/Global/ServiceLocator.h"
 #include "../../include/Event/EventService.h"
 #include "../../include/Global/Config.h"
+#include "../../include/LinkedList/SingleLinkedList.h"
 
 #include <iostream>
 using namespace std;
 
 
+using namespace LinkedList;
 using namespace Global;
 using namespace Event;
 
@@ -59,6 +61,7 @@ namespace Player
 		current_input_state = InputState::WAITING;
 		current_direction = default_direction;
 		elapsed_duration = 0.f;
+		player_score = 0;
 		timer = 0;
 	}
 
@@ -107,6 +110,21 @@ namespace Player
 	vector<Vector2i> SnakeController::getSnakePositionList()
 	{
 		return single_linked_list->getNodePositionList();
+	}
+
+	TimeComplexity SnakeController::getTimeComplexity()
+	{
+		return single_linked_list->getCurrentTimeComplexity();
+	}
+
+	LinkedListOperations SnakeController::getLastOperation()
+	{
+		return single_linked_list->getCurrentLinkedListOperation();
+	}
+
+	int SnakeController::getPlayerScore()
+	{
+		return player_score;
 	}
 
 	
@@ -205,7 +223,14 @@ namespace Player
 		if (ServiceLocator::getInstance()->getFoodService()->processFoodCollision(single_linked_list->getHead(), food_type))
 		{
 			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::PICKUP);
+			onFoodCollected(food_type);
+			player_score++;
 			ServiceLocator::getInstance()->getFoodService()->destroyFood();
+			if (single_linked_list->getListSize() <= 0)
+			{
+				current_snake_state = SnakeState::DEAD;
+				return;
+			}
 			ServiceLocator::getInstance()->getFoodService()->spawnFood();
 		}
 	}

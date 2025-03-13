@@ -38,6 +38,7 @@ namespace Player
 		const float restart_timer = 2.0f;
 		float timer;
 
+		int player_score = 0;
 
 		const int initial_snake_length = 10;
 		SnakeState current_snake_state;
@@ -79,5 +80,9 @@ namespace Player
 
 		vector<Vector2i> getSnakePositionList();
 
+		TimeComplexity getTimeComplexity();
+		LinkedListOperations getLastOperation();
+
+		int getPlayerScore();
 	};
 }

@@ -79,6 +79,12 @@ namespace Level
         ServiceLocator::getInstance()->getElementService()->spawnElement(element_data_list,cell_width,cell_height);
     }
 
+    int LevelService::getLevelNumber()
+    {
+        int number = static_cast<int>(current_level);
+        return number;
+    }
+
     void LevelService::destroy()
     {
         delete(level_controller);
