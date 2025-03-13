@@ -336,7 +336,7 @@ namespace LinkedList
         }
     }
 
-    void SingleLinkedList::reverse()
+    Direction SingleLinkedList::reverse()
     {
         Node* current_node = head_node;
         Node* previous_node = nullptr;
@@ -352,6 +352,9 @@ namespace LinkedList
         }
 
         head_node = previous_node;
+        reverseNodeDirection();
+
+        return head_node->body_part.getDirection();
     }
 
     void SingleLinkedList::reverseNodeDirection()

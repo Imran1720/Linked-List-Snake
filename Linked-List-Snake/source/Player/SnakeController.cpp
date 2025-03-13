@@ -215,20 +215,28 @@ namespace Player
 		switch (food_type)
 		{
 		case Food::FoodType::APPLE:
+			single_linked_list->removeNodeAtHead();
 			break;
 		case Food::FoodType::MANGO:
+			single_linked_list->removeNodeAtMiddle();
 			break;
 		case Food::FoodType::ORANGE:
+			single_linked_list->removeNodeAtTail();
 			break;
 		case Food::FoodType::PIZZA:
+			single_linked_list->insertNodeAtTail();
 			break;
 		case Food::FoodType::BURGER:
+			single_linked_list->insertNodeAtHead();
 			break;
 		case Food::FoodType::CHEESE:
+			single_linked_list->insertNodeAtMiddle();
 			break;
 		case Food::FoodType::POISION:
+			single_linked_list->removeHalfNodes();
 			break;
 		case Food::FoodType::ALCOHOL:
+			current_direction=single_linked_list->reverse();
 			break;
 		default:
 			break;
