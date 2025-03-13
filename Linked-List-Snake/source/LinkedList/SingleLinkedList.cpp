@@ -336,6 +336,53 @@ namespace LinkedList
         }
     }
 
+    void SingleLinkedList::reverse()
+    {
+        Node* current_node = head_node;
+        Node* previous_node = nullptr;
+        Node* next_node = nullptr;
+
+        while (current_node != nullptr)
+        {
+            next_node = current_node->next;
+            current_node->next = previous_node;
+            reverseNodeDirection();
+            previous_node = current_node;
+            current_node = next_node;
+        }
+
+        head_node = previous_node;
+    }
+
+    void SingleLinkedList::reverseNodeDirection()
+    {
+        Node* current_node = head_node;
+
+        while (current_node!=nullptr)
+        {
+            Direction previous_direction = current_node->body_part.getPreviousDirection();
+            current_node->body_part.setDirection(getReverseDirection(previous_direction));
+            current_node = current_node->next;
+        }
+    }
+
+    Direction SingleLinkedList::getReverseDirection(Direction reference_direction)
+    {
+        switch (reference_direction)
+        {
+        case Direction::UP:
+            return Direction::DOWN;
+
+        case Direction::DOWN:
+            return Direction::UP;
+
+        case Direction::LEFT:
+            return Direction::RIGHT;
+
+        case Direction::RIGHT:
+            return Direction::LEFT;
+        }
+    }
 
     int SingleLinkedList::findMiddleIndex()
     {

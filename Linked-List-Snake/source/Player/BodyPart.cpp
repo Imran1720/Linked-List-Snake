@@ -87,6 +87,7 @@ namespace Player
 
 	void BodyPart::setDirection(Direction new_direction)
 	{
+		previous_direction = direction;
 		direction = new_direction;
 	}
 
@@ -160,6 +161,13 @@ namespace Player
 	{
 		return direction;
 	}
+
+	Direction BodyPart::getPreviousDirection()
+	{
+		return previous_direction;
+	}
+
+	
 
 	Vector2i BodyPart::getPosition()
 	{

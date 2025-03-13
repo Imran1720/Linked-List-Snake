@@ -62,6 +62,14 @@ namespace LinkedList
 		void removeNodeAtIndex(int index);
 		void removeNodeAt(int index);
 		void removeNodeAtMiddle();
+		void removeNodeAtTail();
+		Node* findNodeAtIndex(int index);
+		void removeHalfNodes();
+
+		Direction reverse();
+		void reverseNodeDirection();
+
+		Direction getReverseDirection(Direction reference_direction);
 
 
 		vector<Vector2i> getNodePositionList();
