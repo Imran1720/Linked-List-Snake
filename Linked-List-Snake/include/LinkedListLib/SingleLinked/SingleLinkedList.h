@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "LinkedList/Node.h"
+#include "LinkedListLib/SingleLinked/SingleNode.h"
 #include <vector>
 
 using namespace sf;
@@ -38,7 +38,7 @@ namespace LinkedList
 	class SingleLinkedList
 	{
 	private:
-		Node* head_node;
+		SingleNode* head_node;
 
 		LinkedListOperations current_linked_list_operation;
 		TimeComplexity current_time_complexity;
@@ -51,7 +51,7 @@ namespace LinkedList
 
 		int linked_list_size;
 
-		Node* createNode();
+		SingleNode* createNode();
 
 	public:
 		SingleLinkedList();
@@ -60,11 +60,11 @@ namespace LinkedList
 		void initialize(float width, float height, Vector2i position, Direction direction);
 		void render();
 
-		void initializeNode(Node* new_node,Node* reference_node,Operation operation);
+		void initializeNode(SingleNode* new_node,SingleNode* reference_node,Operation operation);
 
 		int getListSize();
 
-		Vector2i getNewNodePosition(Node* reference,Operation operation);
+		Vector2i getNewNodePosition(SingleNode* reference,Operation operation);
 		void updateNodeDirection(Direction direction_to_set);
 		void updateNodePosition();
 		bool processNodeCollision();
@@ -75,8 +75,8 @@ namespace LinkedList
 		void insertNodeAtMiddle();
 		void insertNodeAt(int index);
 
-		void shiftNodeAfterInsertion(Node* new_node,Node* current_node,Node* previous_node);
-		void shiftNodesAfterRemoval(Node* cur_node);
+		void shiftNodeAfterInsertion(SingleNode* new_node,SingleNode* current_node,SingleNode* previous_node);
+		void shiftNodesAfterRemoval(SingleNode* cur_node);
 
 
 		int findMiddleIndex();
@@ -87,7 +87,7 @@ namespace LinkedList
 		void removeNodeAt(int index);
 		void removeNodeAtMiddle();
 		void removeNodeAtTail();
-		Node* findNodeAtIndex(int index);
+		SingleNode* findNodeAtIndex(int index);
 		void removeHalfNodes();
 		
 		Direction reverse();
@@ -98,7 +98,7 @@ namespace LinkedList
 		TimeComplexity getCurrentTimeComplexity();
 		LinkedListOperations getCurrentLinkedListOperation();
 		vector<Vector2i> getNodePositionList();
-		Node* getHead();
+		SingleNode* getHead();
 
 
 	};

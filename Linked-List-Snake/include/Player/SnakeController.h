@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player/Direction.h"
 #include "Food/FoodType.h"
-#include "LinkedList/SingleLinkedList.h"
+#include "LinkedListLib/SingleLinked/SingleLinkedList.h"
 #include <vector>
 
 using namespace std;

@@ -1,4 +1,4 @@
-#include "../../include/LinkedList/SingleLinkedList.h"
+#include "../../include/LinkedListLib/SingleLinked/SingleLinkedList.h"
 
 #include <iostream>
 using namespace std;
@@ -23,7 +23,7 @@ namespace LinkedList
     }
     void SingleLinkedList::render()
     {
-        Node* current_node = head_node;
+        SingleNode* current_node = head_node;
 
         while (current_node->next != nullptr)
         {
@@ -32,7 +32,7 @@ namespace LinkedList
         }
     }
 
-    void SingleLinkedList::initializeNode(Node* new_node, Node* reference_node, Operation operation)
+    void SingleLinkedList::initializeNode(SingleNode* new_node, SingleNode* reference_node, Operation operation)
     {
         if (reference_node == nullptr)
         {
@@ -50,12 +50,12 @@ namespace LinkedList
         return linked_list_size;
     }
 
-    Node* SingleLinkedList::createNode()
+    SingleNode* SingleLinkedList::createNode()
     {
-        return new Node();
+        return new SingleNode();
     }
 
-    Vector2i SingleLinkedList::getNewNodePosition(Node* reference,Operation operation)
+    Vector2i SingleLinkedList::getNewNodePosition(SingleNode* reference,Operation operation)
     {
        /* Direction reference_direction = reference->body_part.getDirection();
         Vector2i reference_position = reference->body_part.getPosition();
@@ -92,8 +92,8 @@ namespace LinkedList
     void SingleLinkedList::insertNodeAtTail()
     {
         linked_list_size++;
-        Node* new_node = createNode();
-        Node* current_node = head_node;
+        SingleNode* new_node = createNode();
+        SingleNode* current_node = head_node;
 
         if (current_node == nullptr)
         {
@@ -117,8 +117,8 @@ namespace LinkedList
     void SingleLinkedList::insertNodeAtHead()
     {
         linked_list_size++;
-        Node* new_node = createNode();
-        Node* reference_node = head_node;
+        SingleNode* new_node = createNode();
+        SingleNode* reference_node = head_node;
 
         if (reference_node == nullptr)
         {
@@ -145,8 +145,8 @@ namespace LinkedList
             return;
         }
 
-       /* Node* new_node = createNode();
-        Node* current_node = head_node;
+       /* SingleNode* new_node = createNode();
+        SingleNode* current_node = head_node;
 
         while (current_node !=  nullptr && index>0)
         {
@@ -160,9 +160,9 @@ namespace LinkedList
         linked_list_size++;*/
 
         int current_index = 0;
-        Node* new_node = createNode();
-        Node* current_node = head_node;
-        Node* previous_node = nullptr;
+        SingleNode* new_node = createNode();
+        SingleNode* current_node = head_node;
+        SingleNode* previous_node = nullptr;
 
         while (current_node != nullptr && current_index < index)
         {
@@ -185,8 +185,8 @@ namespace LinkedList
 
     void SingleLinkedList::insertNodeAtMiddle()
     {
-        Node* new_node = createNode();
-        Node* current_node = head_node;
+        SingleNode* new_node = createNode();
+        SingleNode* current_node = head_node;
 
         if (current_node == nullptr)
         {
@@ -208,9 +208,9 @@ namespace LinkedList
         insertNodeAtIndex(index);
     }
 
-    void SingleLinkedList::shiftNodeAfterInsertion(Node* new_node, Node* current_node, Node* previous_node)
+    void SingleLinkedList::shiftNodeAfterInsertion(SingleNode* new_node, SingleNode* current_node, SingleNode* previous_node)
     {
-        Node* next_node = current_node;
+        SingleNode* next_node = current_node;
         current_node = new_node;
 
         while (current_node!=nullptr && next_node!=nullptr)
@@ -226,11 +226,11 @@ namespace LinkedList
         initializeNode(current_node,previous_node,Operation::TAIL);
     }
 
-    void SingleLinkedList::shiftNodesAfterRemoval(Node* cur_node)
+    void SingleLinkedList::shiftNodesAfterRemoval(SingleNode* cur_node)
     {
         if (cur_node == nullptr)
             return;
-        Node* previous_node = cur_node;
+        SingleNode* previous_node = cur_node;
         cur_node = cur_node->next;
 
         Vector2i previous_position;
@@ -249,7 +249,7 @@ namespace LinkedList
 
             cur_node->body_part.setPosition(previous_position);
             cur_node->body_part.setDirection(previous_direction);
-            //previous_node = cur_node;
+            previous_node = cur_node;
             cur_node = cur_node->next;
 
             previous_direction = temp_direction;
@@ -260,8 +260,8 @@ namespace LinkedList
     void SingleLinkedList::removeNodeAtIndex(int index)
     {
         int current_index = 0;
-        Node* current_node = head_node;
-        Node* previous_node = nullptr;
+        SingleNode* current_node = head_node;
+        SingleNode* previous_node = nullptr;
 
         while (current_node != nullptr && current_index <= index)
         {
@@ -271,6 +271,7 @@ namespace LinkedList
         }
         
         previous_node->next = current_node->next;
+
         linked_list_size--;
         shiftNodesAfterRemoval(current_node);
         delete(current_node);
@@ -313,8 +314,8 @@ namespace LinkedList
             return;
         }
 
-        Node* previous_node = nullptr;
-        Node* currentNode = head_node;
+        SingleNode* previous_node = nullptr;
+        SingleNode* currentNode = head_node;
 
         while (currentNode != nullptr)
         {
@@ -329,10 +330,10 @@ namespace LinkedList
         current_time_complexity = TimeComplexity::N;
     }
 
-    Node* SingleLinkedList::findNodeAtIndex(int index)
+    SingleNode* SingleLinkedList::findNodeAtIndex(int index)
     {
         int current_index = 0;
-        Node* current_node = head_node;
+        SingleNode* current_node = head_node;
 
         if (current_node == nullptr) return nullptr;
 
@@ -350,13 +351,13 @@ namespace LinkedList
         int half_length = linked_list_size / 2;
         int new_tail_index = half_length - 1;
 
-        Node* previous_node = findNodeAtIndex(new_tail_index);
-        Node* current_node = previous_node->next;
+        SingleNode* previous_node = findNodeAtIndex(new_tail_index);
+        SingleNode* current_node = previous_node->next;
         previous_node->next = nullptr;
 
         while (current_node != nullptr)
         {
-            Node* node_to_delete = current_node;
+            SingleNode* node_to_delete = current_node;
             current_node = current_node->next;
 
             node_to_delete->next = nullptr;
@@ -370,9 +371,9 @@ namespace LinkedList
 
     Direction SingleLinkedList::reverse()
     {
-        Node* current_node = head_node;
-        Node* previous_node = nullptr;
-        Node* next_node = nullptr;
+        SingleNode* current_node = head_node;
+        SingleNode* previous_node = nullptr;
+        SingleNode* next_node = nullptr;
 
         while (current_node != nullptr)
         {
@@ -394,7 +395,7 @@ namespace LinkedList
 
     void SingleLinkedList::reverseNodeDirection()
     {
-        Node* current_node = head_node;
+        SingleNode* current_node = head_node;
 
         while (current_node!=nullptr)
         {
@@ -436,8 +437,8 @@ namespace LinkedList
     {
         int current_index = 0;
 
-        Node* slow_node = head_node;
-        Node* fast_Node = head_node;
+        SingleNode* slow_node = head_node;
+        SingleNode* fast_Node = head_node;
 
         while (fast_Node != nullptr && fast_Node->next != nullptr)
         {
@@ -451,7 +452,7 @@ namespace LinkedList
 
     void SingleLinkedList::updateNodeDirection(Direction direction_to_set)
     {
-        Node* current_node = head_node;
+        SingleNode* current_node = head_node;
 
         while (current_node != nullptr)
         {
@@ -466,7 +467,7 @@ namespace LinkedList
 
     void SingleLinkedList::updateNodePosition()
     {
-        Node* current_node = head_node;
+        SingleNode* current_node = head_node;
 
         while (current_node!=nullptr)
         {
@@ -484,7 +485,7 @@ namespace LinkedList
 
         Vector2i predicted_position = head_node->body_part.getNextPosition();
 
-        Node* current_node = head_node->next;
+        SingleNode* current_node = head_node->next;
 
         while (current_node != nullptr)
         {
@@ -512,7 +513,7 @@ namespace LinkedList
 
     void SingleLinkedList::removeNodeAtHead()
     {
-        Node* current_node = head_node;
+        SingleNode* current_node = head_node;
         head_node = head_node->next;
         current_node->next = nullptr;
         delete(current_node);
@@ -526,7 +527,7 @@ namespace LinkedList
     {
         vector<Vector2i> node_Positons_list;
 
-        Node* current_node = head_node;
+        SingleNode* current_node = head_node;
 
         while (current_node != nullptr)
         {
@@ -538,7 +539,7 @@ namespace LinkedList
         return node_Positons_list;
     }
 
-    Node* SingleLinkedList::getHead()
+    SingleNode* SingleLinkedList::getHead()
     {
         return head_node;
     }

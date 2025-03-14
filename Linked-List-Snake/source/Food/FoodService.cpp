@@ -88,7 +88,7 @@ namespace Food
 		return true;
 	}
 
-	bool FoodService::processFoodCollision(Node* head_node, FoodType& out_food_type)
+	bool FoodService::processFoodCollision(SingleNode* head_node, FoodType& out_food_type)
 	{
 		
 		if (current_food_item && getFoodPosition(current_food_item->getFoodPosition()) == head_node->body_part.getPosition())

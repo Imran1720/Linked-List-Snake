@@ -1,6 +1,6 @@
 #pragma once
 #include "../../include/Food/FoodItem.h"
-#include "../../include/LinkedList/SingleLinkedList.h"
+#include "../../include/LinkedListLib/SingleLinked/SingleLinkedList.h"
 
 #include <random>
 
@@ -49,7 +49,7 @@ namespace Food
 			void startFoodSpawning();
 			void stopFoodSpawning();
 			bool isValidPosition(Vector2i random_position);
-			bool processFoodCollision(Node* head_node,FoodType& out_food_type);
+			bool processFoodCollision(SingleNode* head_node,FoodType& out_food_type);
 
 			void destroyFood();
 			Vector2i getFoodPosition(Vector2i position);

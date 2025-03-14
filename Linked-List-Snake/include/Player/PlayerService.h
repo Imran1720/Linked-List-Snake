@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 
-#include "../../include/LinkedList/SingleLinkedList.h"
+#include "../../include/LinkedListLib/SingleLinked/SingleLinkedList.h"
 
 using namespace LinkedList;
 using namespace sf;
