@@ -8,7 +8,7 @@ namespace LinkedListLib
 
 	struct Node
 	{
-		BodyPart* body_part;
+		BodyPart body_part;
 		Node* next = nullptr;
 	};
 }
