@@ -67,6 +67,7 @@ namespace LinkedListLib
         {
             if (index < 0 || index>=linked_list_size) return;
 
+            linked_list_size++;
             if(index==0)
             {
                 insertNodeAtHead();
@@ -81,17 +82,15 @@ namespace LinkedListLib
             while (current_node != nullptr && current_index < index)
             {
                 previous_node = current_node;
-                current_node = static_cast<Node*>(current_node->next);
+                current_node = current_node->next;
                 current_index++;
             }
 
-
             previous_node->next = new_node;
             new_node->next = current_node;
-            initializeNode(new_node,previous_node,Operation::TAIL);
 
+            initializeNode(new_node,previous_node,Operation::TAIL);
             shiftNodeAfterInsertion(new_node, current_node, previous_node);
-            linked_list_size++;
 
             current_linked_list_operation = LinkedListOperations::INSERT_AT_MID;
             current_time_complexity = TimeComplexity::N;
@@ -99,7 +98,6 @@ namespace LinkedListLib
 
         void SingleLinkedList::insertNodeAtMiddle()
         {
-            Node* new_node = createNode();
             Node* current_node = static_cast<Node*>(head_node);
 
             if (current_node == nullptr)
@@ -108,6 +106,7 @@ namespace LinkedListLib
                 return;
             }
 
+            //Node* new_node = createNode();
             int middle_index = findMiddleNode();
             insertNodeAtIndex(middle_index);
         }
@@ -133,7 +132,7 @@ namespace LinkedListLib
 
                 previous_node = current_node;
                 current_node = next_node;
-                next_node = static_cast<Node*>(current_node->next);
+                next_node =current_node->next;
             }
 
             initializeNode(current_node,previous_node,Operation::TAIL);

@@ -9,7 +9,7 @@ namespace LinkedListLib
 		class DoubleLinkedList : public LinkedList
 		{
 		protected:
-			virtual DoubleNode* createNode() override;
+			virtual Node* createNode() override;
 
 		public:
 			DoubleLinkedList();
@@ -20,7 +20,7 @@ namespace LinkedListLib
 			void insertNodeAtTail() override;
 			void insertNodeAtIndex(int index) override;
 
-			void shiftNodesAfterInsertion(DoubleNode* new_node, DoubleNode* cur_node, DoubleNode* prev_node);
+			void shiftNodesAfterInsertion(Node* new_node, Node* cur_node, Node* prev_node);
 
 
 			void removeAllNode() override;
@@ -31,7 +31,7 @@ namespace LinkedListLib
 			void removeNodeAtIndex(int index);
 			void removeHalfNodes() override;
 
-			void shiftNodesAfterRemoval(DoubleNode* cur_node);
+			void shiftNodesAfterRemoval(Node* cur_node);
 			Direction reverse() override;
 		};
 	}
