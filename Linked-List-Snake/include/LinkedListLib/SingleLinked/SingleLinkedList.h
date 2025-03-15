@@ -37,7 +37,7 @@ namespace LinkedListLib
             LinkedListOperations current_linked_list_operation;
             TimeComplexity current_time_complexity;
 
-            virtual SingleNode* createNode() override;
+            virtual Node* createNode() override;
 
         public:
             SingleLinkedList();
@@ -48,7 +48,7 @@ namespace LinkedListLib
             void insertNodeAtTail() override;
             void insertNodeAtIndex(int index);
 
-            void shiftNodeAfterInsertion(SingleNode* new_node, SingleNode* current_node, SingleNode* previous_node);
+            void shiftNodeAfterInsertion(Node* new_node, Node* current_node, Node* previous_node);
 
             void removeAllNode() override;
             void removeNodeAtHead() override;
@@ -58,7 +58,7 @@ namespace LinkedListLib
             void removeHalfNodes() override;
             void removeNodeAtIndex(int index);
 
-            void shiftNodesAfterRemoval(SingleNode* cur_node);
+            void shiftNodesAfterRemoval(Node* cur_node);
 
             Direction reverse() override;
             void reverseNodeDirections();

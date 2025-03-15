@@ -7,7 +7,7 @@ namespace LinkedListLib
 {
     namespace SingleLinked
     {
-        SingleNode* SingleLinkedList::createNode()
+        Node* SingleLinkedList::createNode()
         {
             return new SingleNode();
         }
@@ -20,8 +20,8 @@ namespace LinkedListLib
         void SingleLinkedList::insertNodeAtTail()
         {
             linked_list_size++;
-            SingleNode* new_node = createNode();
-            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            Node* new_node = createNode();
+            Node* current_node = static_cast<Node*>(head_node);
 
             if (current_node == nullptr)
             {
@@ -32,7 +32,7 @@ namespace LinkedListLib
 
             while (current_node->next != nullptr)
             {
-                current_node = static_cast<SingleNode*>(current_node->next);
+                current_node = static_cast<Node*>(current_node->next);
             }
 
             initializeNode(new_node, current_node, Operation::TAIL);
@@ -45,8 +45,8 @@ namespace LinkedListLib
         void SingleLinkedList::insertNodeAtHead()
         {
             linked_list_size++;
-            SingleNode* new_node = createNode();
-            SingleNode* reference_node = static_cast<SingleNode*>(head_node);
+            Node* new_node = createNode();
+            Node* reference_node = static_cast<Node*>(head_node);
 
             if (reference_node == nullptr)
             {
@@ -74,14 +74,14 @@ namespace LinkedListLib
             }
 
             int current_index = 0;
-            SingleNode* new_node = createNode();
-            SingleNode* current_node = static_cast<SingleNode*>(head_node);
-            SingleNode* previous_node = nullptr;
+            Node* new_node = createNode();
+            Node* current_node = static_cast<Node*>(head_node);
+            Node* previous_node = nullptr;
 
             while (current_node != nullptr && current_index < index)
             {
                 previous_node = current_node;
-                current_node = static_cast<SingleNode*>(current_node->next);
+                current_node = static_cast<Node*>(current_node->next);
                 current_index++;
             }
 
@@ -99,8 +99,8 @@ namespace LinkedListLib
 
         void SingleLinkedList::insertNodeAtMiddle()
         {
-            SingleNode* new_node = createNode();
-            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            Node* new_node = createNode();
+            Node* current_node = static_cast<Node*>(head_node);
 
             if (current_node == nullptr)
             {
@@ -121,9 +121,9 @@ namespace LinkedListLib
             insertNodeAtIndex(index);
         }*/
 
-        void SingleLinkedList::shiftNodeAfterInsertion(SingleNode* new_node, SingleNode* current_node, SingleNode* previous_node)
+        void SingleLinkedList::shiftNodeAfterInsertion(Node* new_node, Node* current_node, Node* previous_node)
         {
-            SingleNode* next_node = current_node;
+            Node* next_node = current_node;
             current_node = new_node;
 
             while (current_node!=nullptr && next_node!=nullptr)
@@ -133,18 +133,18 @@ namespace LinkedListLib
 
                 previous_node = current_node;
                 current_node = next_node;
-                next_node = static_cast<SingleNode*>(current_node->next);
+                next_node = static_cast<Node*>(current_node->next);
             }
 
             initializeNode(current_node,previous_node,Operation::TAIL);
         }
 
-        void SingleLinkedList::shiftNodesAfterRemoval(SingleNode* cur_node)
+        void SingleLinkedList::shiftNodesAfterRemoval(Node* cur_node)
         {
             if (cur_node == nullptr)
                 return;
-            SingleNode* previous_node = cur_node;
-            cur_node = static_cast<SingleNode*>(cur_node->next);
+            Node* previous_node = cur_node;
+            cur_node = static_cast<Node*>(cur_node->next);
 
             Vector2i previous_position;
             Direction previous_direction;
@@ -163,7 +163,7 @@ namespace LinkedListLib
                 cur_node->body_part.setPosition(previous_position);
                 cur_node->body_part.setDirection(previous_direction);
                 previous_node = cur_node;
-                cur_node = static_cast<SingleNode*>(cur_node->next);
+                cur_node = static_cast<Node*>(cur_node->next);
 
                 previous_direction = temp_direction;
                 previous_position = temp_position;
@@ -173,13 +173,13 @@ namespace LinkedListLib
         void SingleLinkedList::removeNodeAtIndex(int index)
         {
             int current_index = 0;
-            SingleNode* current_node = static_cast<SingleNode*>(head_node);
-            SingleNode* previous_node = nullptr;
+            Node* current_node = static_cast<Node*>(head_node);
+            Node* previous_node = nullptr;
 
             while (current_node != nullptr && current_index <= index)
             {
                 previous_node = current_node;
-                current_node = static_cast<SingleNode*>(current_node->next);
+                current_node = static_cast<Node*>(current_node->next);
                 current_index++;
             }
         
@@ -227,13 +227,13 @@ namespace LinkedListLib
                 return;
             }
 
-            SingleNode* previous_node = nullptr;
-            SingleNode* currentNode = static_cast<SingleNode*>(head_node);
+            Node* previous_node = nullptr;
+            Node* currentNode = static_cast<Node*>(head_node);
 
             while (currentNode != nullptr)
             {
                 previous_node = currentNode;
-                currentNode = static_cast<SingleNode*>(currentNode->next);
+                currentNode = static_cast<Node*>(currentNode->next);
             }
 
             previous_node->next = nullptr;
@@ -249,14 +249,14 @@ namespace LinkedListLib
             int half_length = linked_list_size / 2;
             int new_tail_index = half_length - 1;
 
-            SingleNode* previous_node = static_cast<SingleNode*>(findNodeAtIndex(new_tail_index));
-            SingleNode* current_node = static_cast<SingleNode*>(previous_node->next);
+            Node* previous_node = static_cast<Node*>(findNodeAtIndex(new_tail_index));
+            Node* current_node = static_cast<Node*>(previous_node->next);
             previous_node->next = nullptr;
 
             while (current_node != nullptr)
             {
-                SingleNode* node_to_delete = current_node;
-                current_node = static_cast<SingleNode*>(current_node->next);
+                Node* node_to_delete = current_node;
+                current_node = static_cast<Node*>(current_node->next);
 
                 node_to_delete->next = nullptr;
                 delete(node_to_delete);
@@ -269,13 +269,13 @@ namespace LinkedListLib
 
         Direction SingleLinkedList::reverse()
         {
-            SingleNode* current_node = static_cast<SingleNode*>(head_node);
-            SingleNode* previous_node = nullptr;
-            SingleNode* next_node = nullptr;
+            Node* current_node = static_cast<Node*>(head_node);
+            Node* previous_node = nullptr;
+            Node* next_node = nullptr;
 
             while (current_node != nullptr)
             {
-                next_node = static_cast<SingleNode*>(current_node->next);
+                next_node = static_cast<Node*>(current_node->next);
                 current_node->next = previous_node;
                 reverseNodeDirection();
                 previous_node = current_node;
@@ -293,13 +293,13 @@ namespace LinkedListLib
 
         void SingleLinkedList::reverseNodeDirections()
         {
-            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            Node* current_node = static_cast<Node*>(head_node);
 
             while (current_node != nullptr)
             {
                 Direction previous_direction = current_node->body_part.getPreviousDirection();
                 current_node->body_part.setDirection(getReverseDirection(previous_direction));
-                current_node = static_cast<SingleNode*>(current_node->next);
+                current_node = static_cast<Node*>(current_node->next);
             }
         }
 
@@ -329,7 +329,7 @@ namespace LinkedListLib
 
         void SingleLinkedList::removeNodeAtHead()
         {
-            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            Node* current_node = static_cast<Node*>(head_node);
             head_node = head_node->next;
             current_node->next = nullptr;
             delete(current_node);

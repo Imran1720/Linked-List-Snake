@@ -8,13 +8,29 @@ namespace LinkedListLib
 
         DoubleLinkedList::~DoubleLinkedList() = default;
 
-        DoubleNode* DoubleLinkedList::createNode()
+        Node* DoubleLinkedList::createNode()
         {
-            return nullptr;
+            return new DoubleNode();
         }
 
         void DoubleLinkedList::insertNodeAtHead()
         {
+            linked_list_size++;
+            Node* new_node = createNode();
+
+            if (head_node == nullptr)
+            {
+                static_cast<DoubleNode*>(new_node)->previous = nullptr;
+                initializeNode(new_node,head_node,Operation::HEAD);
+                head_node = new_node;
+                return;
+            }
+
+            new_node->next = head_node;
+            static_cast<DoubleNode*>(head_node)->previous = new_node;
+
+            initializeNode(new_node, head_node, Operation::HEAD);
+            head_node = new_node;
         }
 
         void DoubleLinkedList::insertNodeAtMiddle()
@@ -29,7 +45,7 @@ namespace LinkedListLib
         {
         }
 
-        void DoubleLinkedList::shiftNodesAfterInsertion(DoubleNode* new_node, DoubleNode* cur_node, DoubleNode* prev_node)
+        void DoubleLinkedList::shiftNodesAfterInsertion(Node* new_node, Node* cur_node, Node* prev_node)
         {
         }
 
@@ -62,7 +78,7 @@ namespace LinkedListLib
         {
         }
 
-        void DoubleLinkedList::shiftNodesAfterRemoval(DoubleNode* cur_node)
+        void DoubleLinkedList::shiftNodesAfterRemoval(Node* cur_node)
         {
         }
 
