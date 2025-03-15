@@ -1,10 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <vector>
-
 #include "../../include/LinkedListLib/SingleLinked/SingleLinkedList.h"
 
-using namespace LinkedList;
+using namespace LinkedListLib::SingleLinked;
 using namespace sf;
 using namespace std;
 namespace Player

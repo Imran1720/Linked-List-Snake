@@ -3,326 +3,340 @@
 #include <iostream>
 using namespace std;
 
-namespace LinkedList
+namespace LinkedListLib
 {
-    SingleNode* SingleLinkedList::createNode()
+    namespace SingleLinked
     {
-        return new SingleNode();
-    }
-
-    void SingleLinkedList::insertNodeAtTail()
-    {
-        linked_list_size++;
-        SingleNode* new_node = createNode();
-        SingleNode* current_node = head_node;
-
-        if (current_node == nullptr)
+        SingleNode* SingleLinkedList::createNode()
         {
-            head_node = new_node;
+            return new SingleNode();
+        }
+
+        SingleLinkedList::SingleLinkedList() = default;
+       
+
+        SingleLinkedList::~SingleLinkedList() = default;
+
+        void SingleLinkedList::insertNodeAtTail()
+        {
+            linked_list_size++;
+            SingleNode* new_node = createNode();
+            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+
+            if (current_node == nullptr)
+            {
+                head_node = new_node;
+                initializeNode(new_node, current_node, Operation::TAIL);
+                return;
+            }
+
+            while (current_node->next != nullptr)
+            {
+                current_node = static_cast<SingleNode*>(current_node->next);
+            }
+
             initializeNode(new_node, current_node, Operation::TAIL);
-            return;
+            current_node->next = new_node;
+
+            current_linked_list_operation = LinkedListOperations::INSERT_AT_TAIL;
+            current_time_complexity = TimeComplexity::N;
         }
 
-        while (current_node->next != nullptr)
+        void SingleLinkedList::insertNodeAtHead()
         {
-            current_node = current_node->next;
+            linked_list_size++;
+            SingleNode* new_node = createNode();
+            SingleNode* reference_node = static_cast<SingleNode*>(head_node);
+
+            if (reference_node == nullptr)
+            {
+               initializeNode(new_node,reference_node,Operation::HEAD);
+                head_node = new_node;
+                return;
+            }
+
+            initializeNode(new_node, reference_node, Operation::HEAD);
+            new_node->next = reference_node;
+            reference_node = new_node;
+
+            current_linked_list_operation = LinkedListOperations::INSERT_AT_HEAD;
+            current_time_complexity = TimeComplexity::ONE;
         }
 
-        initializeNode(new_node, current_node, Operation::TAIL);
-        current_node->next = new_node;
-
-        current_linked_list_operation = LinkedListOperations::INSERT_AT_TAIL;
-        current_time_complexity = TimeComplexity::N;
-    }
-
-    void SingleLinkedList::insertNodeAtHead()
-    {
-        linked_list_size++;
-        SingleNode* new_node = createNode();
-        SingleNode* reference_node = head_node;
-
-        if (reference_node == nullptr)
+        void SingleLinkedList::insertNodeAtIndex(int index)
         {
-           initializeNode(new_node,reference_node,Operation::HEAD);
-            head_node = new_node;
-            return;
+            if (index < 0 || index>=linked_list_size) return;
+
+            if(index==0)
+            {
+                insertNodeAtHead();
+                return;
+            }
+
+            int current_index = 0;
+            SingleNode* new_node = createNode();
+            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            SingleNode* previous_node = nullptr;
+
+            while (current_node != nullptr && current_index < index)
+            {
+                previous_node = current_node;
+                current_node = static_cast<SingleNode*>(current_node->next);
+                current_index++;
+            }
+
+
+            previous_node->next = new_node;
+            new_node->next = current_node;
+            initializeNode(new_node,previous_node,Operation::TAIL);
+
+            shiftNodeAfterInsertion(new_node, current_node, previous_node);
+            linked_list_size++;
+
+            current_linked_list_operation = LinkedListOperations::INSERT_AT_MID;
+            current_time_complexity = TimeComplexity::N;
         }
 
-        initializeNode(new_node, reference_node, Operation::HEAD);
-        new_node->next = head_node;
-        head_node = new_node;
-
-        current_linked_list_operation = LinkedListOperations::INSERT_AT_HEAD;
-        current_time_complexity = TimeComplexity::ONE;
-    }
-
-    void SingleLinkedList::insertNodeAtIndex(int index)
-    {
-        if (index < 0 || index>=linked_list_size) return;
-
-        if(index==0)
+        void SingleLinkedList::insertNodeAtMiddle()
         {
-            insertNodeAtHead();
-            return;
+            SingleNode* new_node = createNode();
+            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+
+            if (current_node == nullptr)
+            {
+                insertNodeAtHead();
+                return;
+            }
+
+            int middle_index = findMiddleNode();
+            insertNodeAtIndex(middle_index);
         }
 
-        int current_index = 0;
-        SingleNode* new_node = createNode();
-        SingleNode* current_node = head_node;
-        SingleNode* previous_node = nullptr;
-
-        while (current_node != nullptr && current_index < index)
+      /*  void SingleLinkedList::insertNodeAt(int index)
         {
-            previous_node = current_node;
-            current_node = current_node->next;
-            current_index++;
-        }
+            if (index < 0 && index >= linked_list_size)
+            {
+                return;
+            }
+            insertNodeAtIndex(index);
+        }*/
 
-
-        previous_node->next = new_node;
-        new_node->next = current_node;
-        initializeNode(new_node,previous_node,Operation::TAIL);
-
-        shiftNodeAfterInsertion(new_node, current_node, previous_node);
-        linked_list_size++;
-
-        current_linked_list_operation = LinkedListOperations::INSERT_AT_MID;
-        current_time_complexity = TimeComplexity::N;
-    }
-
-    void SingleLinkedList::insertNodeAtMiddle()
-    {
-        SingleNode* new_node = createNode();
-        SingleNode* current_node = head_node;
-
-        if (current_node == nullptr)
+        void SingleLinkedList::shiftNodeAfterInsertion(SingleNode* new_node, SingleNode* current_node, SingleNode* previous_node)
         {
-            insertNodeAtHead();
-            return;
+            SingleNode* next_node = current_node;
+            current_node = new_node;
+
+            while (current_node!=nullptr && next_node!=nullptr)
+            {
+                current_node->body_part.setPosition(next_node->body_part.getPosition());
+                current_node->body_part.setDirection(next_node->body_part.getDirection());
+
+                previous_node = current_node;
+                current_node = next_node;
+                next_node = static_cast<SingleNode*>(current_node->next);
+            }
+
+            initializeNode(current_node,previous_node,Operation::TAIL);
         }
 
-        int middle_index = findMiddleIndex();
-        insertNodeAtIndex(middle_index);
-    }
-
-    void SingleLinkedList::insertNodeAt(int index)
-    {
-        if (index < 0 && index >= linked_list_size)
+        void SingleLinkedList::shiftNodesAfterRemoval(SingleNode* cur_node)
         {
-            return;
+            if (cur_node == nullptr)
+                return;
+            SingleNode* previous_node = cur_node;
+            cur_node = static_cast<SingleNode*>(cur_node->next);
+
+            Vector2i previous_position;
+            Direction previous_direction;
+
+            Vector2i temp_position;
+            Direction temp_direction;
+
+            previous_position = previous_node->body_part.getPosition();
+            previous_direction = previous_node->body_part.getDirection();
+
+            while (cur_node != nullptr)
+            {
+                temp_position = cur_node->body_part.getPosition();
+                temp_direction = cur_node->body_part.getDirection();
+
+                cur_node->body_part.setPosition(previous_position);
+                cur_node->body_part.setDirection(previous_direction);
+                previous_node = cur_node;
+                cur_node = static_cast<SingleNode*>(cur_node->next);
+
+                previous_direction = temp_direction;
+                previous_position = temp_position;
+            }
         }
-        insertNodeAtIndex(index);
-    }
 
-    void SingleLinkedList::shiftNodeAfterInsertion(SingleNode* new_node, SingleNode* current_node, SingleNode* previous_node)
-    {
-        SingleNode* next_node = current_node;
-        current_node = new_node;
-
-        while (current_node!=nullptr && next_node!=nullptr)
+        void SingleLinkedList::removeNodeAtIndex(int index)
         {
-            current_node->body_part.setPosition(next_node->body_part.getPosition());
-            current_node->body_part.setDirection(next_node->body_part.getDirection());
+            int current_index = 0;
+            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            SingleNode* previous_node = nullptr;
 
-            previous_node = current_node;
-            current_node = next_node;
-            next_node = current_node->next;
-        }
-
-        initializeNode(current_node,previous_node,Operation::TAIL);
-    }
-
-    void SingleLinkedList::shiftNodesAfterRemoval(SingleNode* cur_node)
-    {
-        if (cur_node == nullptr)
-            return;
-        SingleNode* previous_node = cur_node;
-        cur_node = cur_node->next;
-
-        Vector2i previous_position;
-        Direction previous_direction;
-
-        Vector2i temp_position;
-        Direction temp_direction;
-
-        previous_position = previous_node->body_part.getPosition();
-        previous_direction = previous_node->body_part.getDirection();
-
-        while (cur_node != nullptr)
-        {
-            temp_position = cur_node->body_part.getPosition();
-            temp_direction = cur_node->body_part.getDirection();
-
-            cur_node->body_part.setPosition(previous_position);
-            cur_node->body_part.setDirection(previous_direction);
-            previous_node = cur_node;
-            cur_node = cur_node->next;
-
-            previous_direction = temp_direction;
-            previous_position = temp_position;
-        }
-    }
-
-    void SingleLinkedList::removeNodeAtIndex(int index)
-    {
-        int current_index = 0;
-        SingleNode* current_node = head_node;
-        SingleNode* previous_node = nullptr;
-
-        while (current_node != nullptr && current_index <= index)
-        {
-            previous_node = current_node;
-            current_node = current_node->next;
-            current_index++;
-        }
+            while (current_node != nullptr && current_index <= index)
+            {
+                previous_node = current_node;
+                current_node = static_cast<SingleNode*>(current_node->next);
+                current_index++;
+            }
         
-        previous_node->next = current_node->next;
+            previous_node->next = current_node->next;
 
-        linked_list_size--;
-        shiftNodesAfterRemoval(current_node);
-        delete(current_node);
-        current_linked_list_operation = LinkedListOperations::REMOVE_AT_MID;
-        current_time_complexity = TimeComplexity::N;
-    }
-
-    void SingleLinkedList::removeNodeAt(int index)
-    {
-        if (index < 0 && index >= linked_list_size)
-        {
-            return;
-        }
-        removeNodeAtIndex(index);
-    }
-
-    void SingleLinkedList::removeNodeAtMiddle()
-    {
-        if (head_node == nullptr)
-        {
-            return;
-        }
-
-        int index = findMiddleIndex();
-
-        removeNodeAtIndex(index);
-    }
-
-    void SingleLinkedList::removeNodeAtTail()
-    {
-        if (head_node == nullptr)
-        {
-            return;
-        }
             linked_list_size--;
-
-        if (head_node->next == nullptr)
-        {
-            removeNodeAtHead();
-            return;
+            shiftNodesAfterRemoval(current_node);
+            delete(current_node);
+            current_linked_list_operation = LinkedListOperations::REMOVE_AT_MID;
+            current_time_complexity = TimeComplexity::N;
         }
 
-        SingleNode* previous_node = nullptr;
-        SingleNode* currentNode = head_node;
-
-        while (currentNode != nullptr)
+        void SingleLinkedList::removeNodeAt(int index)
         {
-            previous_node = currentNode;
-            currentNode = currentNode->next;
+            if (index < 0 && index >= linked_list_size)
+            {
+                return;
+            }
+            removeNodeAtIndex(index);
         }
 
-        previous_node->next = nullptr;
-        delete(currentNode);
-
-        current_linked_list_operation = LinkedListOperations::REMOVE_AT_TAIL;
-        current_time_complexity = TimeComplexity::N;
-    }
-
-    void SingleLinkedList::removeHalfNodes()
-    {
-        if (linked_list_size <= 1) return;
-        int half_length = linked_list_size / 2;
-        int new_tail_index = half_length - 1;
-
-        SingleNode* previous_node = findNodeAtIndex(new_tail_index);
-        SingleNode* current_node = previous_node->next;
-        previous_node->next = nullptr;
-
-        while (current_node != nullptr)
+        void SingleLinkedList::removeNodeAtMiddle()
         {
-            SingleNode* node_to_delete = current_node;
-            current_node = current_node->next;
+            if (head_node == nullptr)
+            {
+                return;
+            }
 
-            node_to_delete->next = nullptr;
-            delete(node_to_delete);
-            linked_list_size--;
+            int index = findMiddleNode();
+
+            removeNodeAtIndex(index);
         }
 
-        current_linked_list_operation = LinkedListOperations::DELETE_HALF_LIST;
-        current_time_complexity = TimeComplexity::N;
-    }
-
-    Direction SingleLinkedList::reverse()
-    {
-        SingleNode* current_node = head_node;
-        SingleNode* previous_node = nullptr;
-        SingleNode* next_node = nullptr;
-
-        while (current_node != nullptr)
+        void SingleLinkedList::removeNodeAtTail()
         {
-            next_node = current_node->next;
-            current_node->next = previous_node;
+            if (head_node == nullptr)
+            {
+                return;
+            }
+                linked_list_size--;
+
+            if (head_node->next == nullptr)
+            {
+                removeNodeAtHead();
+                return;
+            }
+
+            SingleNode* previous_node = nullptr;
+            SingleNode* currentNode = static_cast<SingleNode*>(head_node);
+
+            while (currentNode != nullptr)
+            {
+                previous_node = currentNode;
+                currentNode = static_cast<SingleNode*>(currentNode->next);
+            }
+
+            previous_node->next = nullptr;
+            delete(currentNode);
+
+            current_linked_list_operation = LinkedListOperations::REMOVE_AT_TAIL;
+            current_time_complexity = TimeComplexity::N;
+        }
+
+        void SingleLinkedList::removeHalfNodes()
+        {
+            if (linked_list_size <= 1) return;
+            int half_length = linked_list_size / 2;
+            int new_tail_index = half_length - 1;
+
+            SingleNode* previous_node = static_cast<SingleNode*>(findNodeAtIndex(new_tail_index));
+            SingleNode* current_node = static_cast<SingleNode*>(previous_node->next);
+            previous_node->next = nullptr;
+
+            while (current_node != nullptr)
+            {
+                SingleNode* node_to_delete = current_node;
+                current_node = static_cast<SingleNode*>(current_node->next);
+
+                node_to_delete->next = nullptr;
+                delete(node_to_delete);
+                linked_list_size--;
+            }
+
+            current_linked_list_operation = LinkedListOperations::DELETE_HALF_LIST;
+            current_time_complexity = TimeComplexity::N;
+        }
+
+        Direction SingleLinkedList::reverse()
+        {
+            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            SingleNode* previous_node = nullptr;
+            SingleNode* next_node = nullptr;
+
+            while (current_node != nullptr)
+            {
+                next_node = static_cast<SingleNode*>(current_node->next);
+                current_node->next = previous_node;
+                reverseNodeDirection();
+                previous_node = current_node;
+                current_node = next_node;
+            }
+
+            head_node = previous_node;
             reverseNodeDirection();
-            previous_node = current_node;
-            current_node = next_node;
+
+            current_linked_list_operation = LinkedListOperations::REVERSE_LIST;
+            current_time_complexity = TimeComplexity::N;
+
+            return head_node->body_part.getDirection();
         }
 
-        head_node = previous_node;
-        reverseNodeDirection();
-
-        current_linked_list_operation = LinkedListOperations::REVERSE_LIST;
-        current_time_complexity = TimeComplexity::N;
-
-        return head_node->body_part.getDirection();
-    }
-
-  
-   
-
-    TimeComplexity SingleLinkedList::getCurrentTimeComplexity()
-    {
-        return current_time_complexity;
-    }
-
-    LinkedListOperations SingleLinkedList::getCurrentLinkedListOperation()
-    {
-        return current_linked_list_operation;
-    }
-
-    void SingleLinkedList::removeAllHeadNode()
-    {
-        if (head_node == nullptr) return;
-
-        while (head_node!=nullptr)
+        void SingleLinkedList::reverseNodeDirections()
         {
-            removeNodeAtHead();
+            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+
+            while (current_node != nullptr)
+            {
+                Direction previous_direction = current_node->body_part.getPreviousDirection();
+                current_node->body_part.setDirection(getReverseDirection(previous_direction));
+                current_node = static_cast<SingleNode*>(current_node->next);
+            }
         }
+
+        TimeComplexity SingleLinkedList::getCurrentTimeComplexity()
+        {
+            return current_time_complexity;
+        }
+
+        LinkedListOperations SingleLinkedList::getCurrentLinkedListOperation()
+        {
+            return current_linked_list_operation;
+        }
+
+      
+
+
+        void SingleLinkedList::removeAllNode()
+        {
+            if (head_node == nullptr) return;
+
+            while (head_node!=nullptr)
+            {
+                removeNodeAtHead();
+            }
         
-    }
+        }
 
-    void SingleLinkedList::removeNodeAtHead()
-    {
-        SingleNode* current_node = head_node;
-        head_node = head_node->next;
-        current_node->next = nullptr;
-        delete(current_node);
-        linked_list_size--;
+        void SingleLinkedList::removeNodeAtHead()
+        {
+            SingleNode* current_node = static_cast<SingleNode*>(head_node);
+            head_node = head_node->next;
+            current_node->next = nullptr;
+            delete(current_node);
+            linked_list_size--;
 
-        current_linked_list_operation = LinkedListOperations::REMOVE_AT_HEAD;
-        current_time_complexity = TimeComplexity::ONE;
-    }
-
-
- 
-
-
-
+            current_linked_list_operation = LinkedListOperations::REMOVE_AT_HEAD;
+            current_time_complexity = TimeComplexity::ONE;
+        }
+     }
 }

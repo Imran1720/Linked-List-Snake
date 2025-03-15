@@ -5,7 +5,7 @@
 #include <random>
 
 using namespace std;
-using namespace LinkedList;
+using namespace LinkedListLib::SingleLinked;
 
 namespace Food
 {

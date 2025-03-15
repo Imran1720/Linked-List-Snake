@@ -6,7 +6,7 @@
 #include <vector>
 
 using namespace std;
-using namespace LinkedList;
+using namespace LinkedListLib::SingleLinked;
 using namespace sf;
 using namespace Food;
 
@@ -84,5 +84,7 @@ namespace Player
 		LinkedListOperations getLastOperation();
 
 		int getPlayerScore();
+
+
 	};
 }

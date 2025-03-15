@@ -5,7 +5,7 @@
 #include "../../include/LinkedListLib/SingleLinked/SingleLinkedList.h"
 
 using namespace std;
-using namespace LinkedList;
+using namespace LinkedListLib::SingleLinked;
 
 namespace Element
 {

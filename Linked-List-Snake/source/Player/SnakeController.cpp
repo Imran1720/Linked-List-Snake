@@ -8,7 +8,7 @@
 using namespace std;
 
 
-using namespace LinkedList;
+using namespace LinkedListLib::SingleLinked;
 using namespace Global;
 using namespace Event;
 
@@ -67,7 +67,7 @@ namespace Player
 
 	void SnakeController::respawnSnake()
 	{
-		single_linked_list->removeAllHeadNode();
+		single_linked_list->removeAllNode();
 		reset();
 		spawnSnake();
 	}
@@ -209,7 +209,7 @@ namespace Player
 
 	void SnakeController::processElementCollision()
 	{
-		if (ServiceLocator::getInstance()->getElementService()->processElementCollision(single_linked_list->getHead()))
+		if (ServiceLocator::getInstance()->getElementService()->processElementCollision(static_cast<SingleNode*>(single_linked_list->getHeadNode())))
 		{
 			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
 			current_snake_state = SnakeState::DEAD;
@@ -220,13 +220,13 @@ namespace Player
 	{
 		FoodType food_type;
 
-		if (ServiceLocator::getInstance()->getFoodService()->processFoodCollision(single_linked_list->getHead(), food_type))
+		if (ServiceLocator::getInstance()->getFoodService()->processFoodCollision(static_cast<SingleNode*>(single_linked_list->getHeadNode()), food_type))
 		{
 			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::PICKUP);
 			onFoodCollected(food_type);
 			player_score++;
 			ServiceLocator::getInstance()->getFoodService()->destroyFood();
-			if (single_linked_list->getListSize() <= 0)
+			if (single_linked_list->getLinkedListSize() <= 0)
 			{
 				current_snake_state = SnakeState::DEAD;
 				return;
