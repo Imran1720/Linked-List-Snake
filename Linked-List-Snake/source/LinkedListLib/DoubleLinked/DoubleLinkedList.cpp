@@ -259,7 +259,22 @@ namespace LinkedListLib
 
         Direction DoubleLinkedList::reverse()
         {
-            return Direction();
+            Node* current_node = head_node;
+            Node* previous_node = nullptr;
+            Node* next_node = nullptr;
+
+            while (current_node != nullptr)
+            {
+                next_node = current_node->next;
+                current_node->next = previous_node;
+                static_cast<DoubleNode*>(previous_node)->previous = current_node;
+
+                previous_node = current_node;
+                current_node = next_node;
+            }
+            head_node = previous_node;
+            reverseNodeDirection();
+            return head_node->body_part.getDirection();
         }
     }
 }

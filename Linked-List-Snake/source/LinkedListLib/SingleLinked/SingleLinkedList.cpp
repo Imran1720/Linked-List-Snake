@@ -277,9 +277,9 @@ namespace LinkedListLib
 
             while (current_node != nullptr)
             {
-                next_node = static_cast<Node*>(current_node->next);
+                next_node = current_node->next;
                 current_node->next = previous_node;
-                reverseNodeDirection();
+                /*reverseNodeDirection();*/
                 previous_node = current_node;
                 current_node = next_node;
             }
