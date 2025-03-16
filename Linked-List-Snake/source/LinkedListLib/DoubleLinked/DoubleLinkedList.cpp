@@ -128,14 +128,10 @@ namespace LinkedListLib
             if (head_node == nullptr) return;
 
             Node* current_node = head_node;
-            Node* previous_node = nullptr;
+            
             while (current_node != nullptr)
             {
-                previous_node = current_node;
-                current_node = current_node->next;
-                previous_node->next = nullptr;
-                static_cast<DoubleNode*>(current_node)->previous = nullptr;
-                delete previous_node;
+                removeNodeAtHead();
             }
         }
 
@@ -225,6 +221,12 @@ namespace LinkedListLib
 
         void DoubleLinkedList::removeHalfNodes()
         {
+            int number_of_node_to_delete = (linked_list_size / 2) ;
+
+            while (number_of_node_to_delete > 0 && head_node != nullptr)
+            {
+                removeNodeAtHead();
+            }
         }
 
         void DoubleLinkedList::shiftNodesAfterRemoval(Node* cur_node)

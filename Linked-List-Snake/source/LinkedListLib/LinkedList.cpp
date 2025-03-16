@@ -59,7 +59,7 @@ namespace LinkedListLib
 		int current_index = 0;
 		Node* current_node = head_node;
 
-		if (current_node == nullptr) return nullptr;
+		if (current_node == nullptr) return;
 
 		while (current_node != nullptr && current_index < index)
 		{
