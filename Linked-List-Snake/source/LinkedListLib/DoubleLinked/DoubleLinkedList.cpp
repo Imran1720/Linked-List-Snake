@@ -146,6 +146,11 @@ namespace LinkedListLib
 
         void DoubleLinkedList::removeNodeAtMiddle()
         {
+            if (head_node == nullptr) return;
+
+            int index = findMiddleNode();
+
+            removeNodeAtIndex(index);
         }
 
         void DoubleLinkedList::removeNodeAtTail()
@@ -176,10 +181,33 @@ namespace LinkedListLib
 
         void DoubleLinkedList::removeNodeAt(int index)
         {
+            removeNodeAtIndex(index);
         }
 
         void DoubleLinkedList::removeNodeAtIndex(int index)
         {
+            if (index < 0 && index >= linked_list_size) return;
+            linked_list_size--;
+            int current_index = 0;
+            Node* current_node = head_node;
+
+            while (current_node != nullptr && current_index<index)
+            {
+                current_node = current_node->next;
+                current_index++;
+            }
+
+            Node* previous_node = static_cast<DoubleNode*>(current_node)->previous;
+            Node* next_node = current_node->next;
+            
+            shiftNodesAfterRemoval(current_node);
+            
+            previous_node->next = next_node;
+            static_cast<DoubleNode*>(next_node)->previous = previous_node;
+            current_node->next = nullptr;
+            static_cast<DoubleNode*>(current_node)->previous = nullptr;
+
+            delete current_node;
         }
 
 
@@ -189,6 +217,30 @@ namespace LinkedListLib
 
         void DoubleLinkedList::shiftNodesAfterRemoval(Node* cur_node)
         {
+            if (cur_node == nullptr) return;
+
+            Node* previous_node = cur_node;
+            cur_node = cur_node->next;
+
+            Vector2i previous_position = previous_node->body_part.getPosition();
+            Direction previous_direction = previous_node->body_part.getDirection();
+
+            Vector2i temp_position;
+            Direction temp_direction;
+
+            while (cur_node != nullptr)
+            {
+                temp_position = cur_node->body_part.getPosition();
+                temp_direction = cur_node->body_part.getDirection();
+
+                cur_node->body_part.setPosition(previous_position);
+                cur_node->body_part.setDirection(previous_direction);
+
+                cur_node = cur_node->next;
+
+                previous_position = temp_position;
+                previous_direction = temp_direction;
+            }
         }
 
         Direction DoubleLinkedList::reverse()

@@ -143,7 +143,7 @@ namespace LinkedListLib
             if (cur_node == nullptr)
                 return;
             Node* previous_node = cur_node;
-            cur_node = static_cast<Node*>(cur_node->next);
+            cur_node = cur_node->next;
 
             Vector2i previous_position;
             Direction previous_direction;
@@ -161,8 +161,9 @@ namespace LinkedListLib
 
                 cur_node->body_part.setPosition(previous_position);
                 cur_node->body_part.setDirection(previous_direction);
+
                 previous_node = cur_node;
-                cur_node = static_cast<Node*>(cur_node->next);
+                cur_node = cur_node->next;
 
                 previous_direction = temp_direction;
                 previous_position = temp_position;
@@ -175,7 +176,7 @@ namespace LinkedListLib
             Node* current_node = static_cast<Node*>(head_node);
             Node* previous_node = nullptr;
 
-            while (current_node != nullptr && current_index <= index)
+            while (current_node != nullptr && current_index < index)
             {
                 previous_node = current_node;
                 current_node = static_cast<Node*>(current_node->next);
@@ -186,6 +187,8 @@ namespace LinkedListLib
 
             linked_list_size--;
             shiftNodesAfterRemoval(current_node);
+            
+            current_node->next = nullptr;
             delete(current_node);
             current_linked_list_operation = LinkedListOperations::REMOVE_AT_MID;
             current_time_complexity = TimeComplexity::N;
@@ -292,7 +295,7 @@ namespace LinkedListLib
 
         void SingleLinkedList::reverseNodeDirections()
         {
-            Node* current_node = static_cast<Node*>(head_node);
+            Node* current_node = head_node;
 
             while (current_node != nullptr)
             {
