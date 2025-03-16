@@ -150,6 +150,28 @@ namespace LinkedListLib
 
         void DoubleLinkedList::removeNodeAtTail()
         {
+            if (head_node == nullptr) return;
+            linked_list_size--;
+
+            Node* current_node = head_node;
+
+            if (current_node->next = nullptr)
+            {
+                removeNodeAtHead();
+                return;
+            }
+
+            while (current_node->next != nullptr)
+            {
+                current_node = current_node->next;
+            }
+
+            Node* previous_node = static_cast<DoubleNode*>(current_node)->previous;
+
+            previous_node->next = nullptr;
+
+            delete current_node;
+
         }
 
         void DoubleLinkedList::removeNodeAt(int index)
