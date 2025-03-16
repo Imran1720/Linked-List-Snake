@@ -129,6 +129,19 @@ namespace LinkedListLib
 
         void DoubleLinkedList::removeNodeAtHead()
         {
+            if (head_node == nullptr) return;
+
+            linked_list_size--;
+            Node* current_node = head_node;
+
+            if (head_node->next != nullptr)
+            {
+                head_node = head_node->next;
+                static_cast<DoubleNode*>(head_node)->previous = nullptr;
+            }
+
+            current_node->next = nullptr;
+            delete current_node;
         }
 
         void DoubleLinkedList::removeNodeAtMiddle()
