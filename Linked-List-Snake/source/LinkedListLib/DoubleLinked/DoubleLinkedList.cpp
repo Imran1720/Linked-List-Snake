@@ -1,5 +1,7 @@
 #include "../../include/LinkedListLib/DoubleLinked/DoubleLinkedList.h"
 
+#include <iostream>
+using namespace std;
 namespace LinkedListLib
 {
     namespace DoubleLinked
@@ -20,6 +22,7 @@ namespace LinkedListLib
 
             if (head_node == nullptr)
             {
+                linked_list_size++;
                 static_cast<DoubleNode*>(new_node)->previous = nullptr;
                 initializeNode(new_node,head_node,Operation::HEAD);
                 head_node = new_node;
@@ -35,7 +38,6 @@ namespace LinkedListLib
 
         void DoubleLinkedList::insertNodeAtMiddle()
         {
-            linked_list_size++;
             Node* current_node = head_node;
 
             if (current_node == nullptr)
@@ -50,6 +52,7 @@ namespace LinkedListLib
 
         void DoubleLinkedList::insertNodeAtTail()
         {
+            linked_list_size++;
             Node* new_node = createNode();
             Node* current_node = head_node;
 

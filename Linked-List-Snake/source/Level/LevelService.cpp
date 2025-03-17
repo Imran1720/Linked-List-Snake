@@ -42,9 +42,8 @@ namespace Level
 
     void LevelService::createLevel(LinkedListType list_type)
     {
-        current_linked_list_type = list_type;
         spawnLevelElements(current_level);
-        spawnPlayer();
+        spawnPlayer(list_type);
         spawnFood();
     }
 
@@ -57,9 +56,9 @@ namespace Level
         spawnFood();
     }*/
 
-    void LevelService::spawnPlayer()
+    void LevelService::spawnPlayer(LinkedListType list_type)
     {
-        ServiceLocator::getInstance()->getPlayerService()->spawnPlayer();
+        ServiceLocator::getInstance()->getPlayerService()->spawnPlayer(list_type);
     }
 
     float LevelService::getCellWidth()

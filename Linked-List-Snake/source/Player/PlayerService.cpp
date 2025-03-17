@@ -39,10 +39,12 @@ namespace Player
 
 	}
 
-	void PlayerService::spawnPlayer()
+	void PlayerService::spawnPlayer(LinkedListType list_type)
 	{
+		snake_controller->createLinkedList(list_type);
 		snake_controller->spawnSnake();
 	}
+
 
 	vector<Vector2i> PlayerService::getSnakePositionList()
 	{

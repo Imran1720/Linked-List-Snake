@@ -1,9 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <vector>
-#include "../../include/LinkedListLib/SingleLinked/SingleLinkedList.h"
+#include "../../include/Level/LevelConfig.h"
 
-using namespace LinkedListLib::SingleLinked;
+using namespace Level;
 using namespace sf;
 using namespace std;
 namespace Player
@@ -25,7 +25,7 @@ namespace Player
 		void render();
 
 		void createController();
-		void spawnPlayer();
+		void spawnPlayer(LinkedListType list_type);
 		vector<Vector2i> getSnakePositionList();
 		int getPlayerScore();
 

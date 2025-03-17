@@ -1,11 +1,13 @@
 #pragma once
 #include "LinkedListLib/Node.h"
+#include "Level/LevelConfig.h"
 #include <vector>
 
 
 namespace LinkedListLib
 {
 	using namespace std;	
+	using namespace Level;
 
 	enum class Operation
 	{
