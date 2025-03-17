@@ -29,6 +29,7 @@ namespace Player
 		vector<Vector2i> getSnakePositionList();
 		int getPlayerScore();
 
+		bool isSnakeDead();
 		TimeComplexity getTimeComplexity();
 		LinkedListOperations getLastOperation();
 

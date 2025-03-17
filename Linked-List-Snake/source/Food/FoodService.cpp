@@ -157,6 +157,8 @@ namespace Food
 	}
 	void FoodService::handleFoodSpawn()
 	{
+		if (ServiceLocator::getInstance()->getPlayerService()->isSnakeDead()) return;
+
 		if (elapsed_time >= spawn_duration)
 		{
 			destroyFood();

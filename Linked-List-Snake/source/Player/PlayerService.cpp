@@ -56,6 +56,11 @@ namespace Player
 		return snake_controller->getPlayerScore();
 	}
 
+	bool PlayerService::isSnakeDead()
+	{
+		return snake_controller->getSnakeState()==SnakeState::DEAD;
+	}
+
 	TimeComplexity PlayerService::getTimeComplexity()
 	{
 		return snake_controller->getTimeComplexity();
