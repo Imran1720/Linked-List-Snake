@@ -40,14 +40,22 @@ namespace Level
 
     }
 
+    void LevelService::createLevel(LinkedListType list_type)
+    {
+        current_linked_list_type = list_type;
+        spawnLevelElements(current_level);
+        spawnPlayer();
+        spawnFood();
+    }
 
-    void LevelService::createLevel(LevelNumber level_to_load)
+
+ /*   void LevelService::createLevel(LevelNumber level_to_load)
     {
         current_level = level_to_load;
         spawnLevelElements(level_to_load);
         spawnPlayer();
         spawnFood();
-    }
+    }*/
 
     void LevelService::spawnPlayer()
     {
@@ -83,6 +91,11 @@ namespace Level
     {
         int number = static_cast<int>(current_level);
         return number;
+    }
+
+    void LevelService::setLevel(LevelNumber level_to_load)
+    {
+        current_level = level_to_load;
     }
 
     void LevelService::destroy()
