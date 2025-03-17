@@ -197,7 +197,7 @@
     <ClInclude Include="include\Level\LevelData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Level\LevelNumber.h">
+    <ClInclude Include="include\Level\LevelConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\UI\LevelSelectionMenu\LevelSelectionUIController.h">
