@@ -2,8 +2,10 @@
 #include <vector>
 #include "../../include/Element/Obstacle.h";
 #include "../../include/Element/ElementData.h";
+#include "../../include/LinkedList/SingleLinkedList.h"
 
 using namespace std;
+using namespace LinkedList;
 
 namespace Element
 {
@@ -27,6 +29,6 @@ namespace Element
 		const void spawnElement(vector <ElementData>& element_data_list, float width, float heoght);
 
 		vector<Vector2i> getElementPositionList();
-
+		bool processElementCollision(Node* head);
 	};
 }

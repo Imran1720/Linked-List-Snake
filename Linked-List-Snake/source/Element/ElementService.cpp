@@ -1,4 +1,6 @@
 #include "../../include/Element/ElementService.h"
+#include <iostream>
+using namespace std;
 
 namespace Element
 {
@@ -52,6 +54,24 @@ namespace Element
 			element_position_list.push_back(obstale_list[i]->getObstaclePosition());
 		}
 		return element_position_list;
+	}
+
+	bool ElementService::processElementCollision(Node* head_node)
+	{
+		for (int i = 0; i < obstale_list.size(); i++)
+		{
+
+
+			if (head_node->body_part.getPosition() == obstale_list[i]->getObstaclePosition())
+			{
+				/*cout << "head position : (" << head_node->body_part.getNextPosition().x <<
+					"," << head_node->body_part.getNextPosition().y << ") Obstacle : ("
+					<< obstale_list[i]->getObstaclePosition().x << "," <<
+					obstale_list[i]->getObstaclePosition().y << ")" << endl;*/
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

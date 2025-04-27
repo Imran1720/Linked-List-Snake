@@ -1,6 +1,7 @@
 #include "../../include/Player/PlayerService.h"
 #include "../../include/Player/SnakeController.h"
 
+
 namespace Player
 {
 	
@@ -46,6 +47,21 @@ namespace Player
 	vector<Vector2i> PlayerService::getSnakePositionList()
 	{
 		return snake_controller->getSnakePositionList();
+	}
+
+	int PlayerService::getPlayerScore()
+	{
+		return snake_controller->getPlayerScore();
+	}
+
+	TimeComplexity PlayerService::getTimeComplexity()
+	{
+		return snake_controller->getTimeComplexity();
+	}
+
+	LinkedListOperations PlayerService::getLastOperation()
+	{
+		return snake_controller->getLastOperation();
 	}
 
 	void PlayerService::destroy()

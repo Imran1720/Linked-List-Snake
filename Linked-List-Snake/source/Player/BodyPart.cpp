@@ -63,8 +63,8 @@ namespace Player
 
 	Vector2f BodyPart::getBodypartScreenPosition()
 	{
-		float xPosition = LevelView::border_offset_top+ (grid_position.x * bodypart_width) + (bodypart_width / 2);
-		float yPosition = LevelView::border_offset_left + (grid_position.y * bodypart_height) + (bodypart_height / 2);
+		float xPosition = LevelView::border_offset_left + (grid_position.x * bodypart_width) + (bodypart_width / 2);
+		float yPosition = LevelView::border_offset_top + (grid_position.y * bodypart_height) + (bodypart_height / 2);
 
 		return Vector2f(xPosition,yPosition);
 	}
@@ -87,6 +87,7 @@ namespace Player
 
 	void BodyPart::setDirection(Direction new_direction)
 	{
+		previous_direction = direction;
 		direction = new_direction;
 	}
 
@@ -109,6 +110,27 @@ namespace Player
 			return getnextPositionRight();
 		}
 	}
+
+	Vector2i BodyPart::getPreviousPosition()
+	{
+		switch (direction)
+		{
+		case Direction::UP:
+			return getnextPositionDown();
+
+		case Direction::DOWN:
+			return getnextPositionUp();
+
+		case Direction::LEFT:
+			return getnextPositionRight();
+
+		case Direction::RIGHT:
+			return getnextPositionLeft();
+		default:
+			return grid_position;
+		}
+	}
+
 
 	Vector2i BodyPart::getnextPositionUp()
 	{
@@ -139,6 +161,13 @@ namespace Player
 	{
 		return direction;
 	}
+
+	Direction BodyPart::getPreviousDirection()
+	{
+		return previous_direction;
+	}
+
+	
 
 	Vector2i BodyPart::getPosition()
 	{

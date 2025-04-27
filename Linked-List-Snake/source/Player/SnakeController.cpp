@@ -1,11 +1,14 @@
 #include "../../include/Player/SnakeController.h"
 #include "../../include/Global/ServiceLocator.h"
 #include "../../include/Event/EventService.h"
+#include "../../include/Global/Config.h"
+#include "../../include/LinkedList/SingleLinkedList.h"
 
 #include <iostream>
 using namespace std;
 
 
+using namespace LinkedList;
 using namespace Global;
 using namespace Event;
 
@@ -39,6 +42,7 @@ namespace Player
 		}
 		else
 		{
+
 			handleRestart();
 		}
 	}
@@ -57,6 +61,7 @@ namespace Player
 		current_input_state = InputState::WAITING;
 		current_direction = default_direction;
 		elapsed_duration = 0.f;
+		player_score = 0;
 		timer = 0;
 	}
 
@@ -105,6 +110,21 @@ namespace Player
 	vector<Vector2i> SnakeController::getSnakePositionList()
 	{
 		return single_linked_list->getNodePositionList();
+	}
+
+	TimeComplexity SnakeController::getTimeComplexity()
+	{
+		return single_linked_list->getCurrentTimeComplexity();
+	}
+
+	LinkedListOperations SnakeController::getLastOperation()
+	{
+		return single_linked_list->getCurrentLinkedListOperation();
+	}
+
+	int SnakeController::getPlayerScore()
+	{
+		return player_score;
 	}
 
 	
@@ -159,21 +179,92 @@ namespace Player
 
 	void SnakeController::processSnakeCollision()
 	{
-		if (single_linked_list->processNodeCollision())
-		{
-			current_snake_state = SnakeState::DEAD;
-			timer = 0;
-		}
+		processBodyCollision();
+		processElementCollision();
+		processFoodCollision();
 	}
 
 	void SnakeController::handleRestart()
 	{
+		//ServiceLocator::getInstance()->getFoodService()->stopFoodSpawning();
+
 		timer += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
 		if (timer >= restart_timer)
 		{
 			respawnSnake();
 
+		}
+	}
+
+	void SnakeController::processBodyCollision()
+	{
+		if (single_linked_list->processNodeCollision())
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
+			current_snake_state = SnakeState::DEAD;
+			timer = 0;
+		}
+	}
+
+	void SnakeController::processElementCollision()
+	{
+		if (ServiceLocator::getInstance()->getElementService()->processElementCollision(single_linked_list->getHead()))
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
+			current_snake_state = SnakeState::DEAD;
+		}
+	}
+
+	void SnakeController::processFoodCollision()
+	{
+		FoodType food_type;
+
+		if (ServiceLocator::getInstance()->getFoodService()->processFoodCollision(single_linked_list->getHead(), food_type))
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::PICKUP);
+			onFoodCollected(food_type);
+			player_score++;
+			ServiceLocator::getInstance()->getFoodService()->destroyFood();
+			if (single_linked_list->getListSize() <= 0)
+			{
+				current_snake_state = SnakeState::DEAD;
+				return;
+			}
+			ServiceLocator::getInstance()->getFoodService()->spawnFood();
+		}
+	}
+
+	void SnakeController::onFoodCollected(FoodType food_type)
+	{
+		switch (food_type)
+		{
+		case Food::FoodType::APPLE:
+			single_linked_list->removeNodeAtHead();
+			break;
+		case Food::FoodType::MANGO:
+			single_linked_list->removeNodeAtMiddle();
+			break;
+		case Food::FoodType::ORANGE:
+			single_linked_list->removeNodeAtTail();
+			break;
+		case Food::FoodType::PIZZA:
+			single_linked_list->insertNodeAtTail();
+			break;
+		case Food::FoodType::BURGER:
+			single_linked_list->insertNodeAtHead();
+			break;
+		case Food::FoodType::CHEESE:
+			single_linked_list->insertNodeAtMiddle();
+			break;
+		case Food::FoodType::POISION:
+			single_linked_list->removeHalfNodes();
+			break;
+		case Food::FoodType::ALCOHOL:
+			current_direction=single_linked_list->reverse();
+			break;
+		default:
+			break;
 		}
 	}
 

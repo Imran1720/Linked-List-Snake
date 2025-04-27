@@ -29,5 +29,7 @@ namespace Level
 
 		void spawnFood();
 		void spawnLevelElements(LevelNumber level_to_load);
+
+		int getLevelNumber();
 	};
 }

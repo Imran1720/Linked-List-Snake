@@ -52,9 +52,9 @@ namespace Element
 
 	Vector2f Obstacle::getObstacleScreenPosition()
 	{
-		float screen_position_x = LevelView::border_offset_left + (cell_width * grid_position.y);
-		float screen_position_y = LevelView::border_offset_top + (cell_height * grid_position.x);
-		return Vector2f(screen_position_x,screen_position_y);
+		float screen_position_x = LevelView::border_offset_top + (cell_width * grid_position.x);
+		float screen_position_y = LevelView::border_offset_left + (cell_height * grid_position.y);
+		return Vector2f(screen_position_x, screen_position_y);
 	}
 
 	void Obstacle::destroy()

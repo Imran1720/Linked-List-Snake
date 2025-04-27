@@ -16,6 +16,7 @@ namespace Player
 
 		Vector2i grid_position;
 		Direction direction;
+		Direction previous_direction;
 
 		float bodypart_width;
 		float bodypart_height;
@@ -38,6 +39,8 @@ namespace Player
 
 		Vector2i getNextPosition();
 
+		Vector2i getPreviousPosition();
+
 		Vector2i getnextPositionUp();
 		Vector2i getnextPositionDown();
 		Vector2i getnextPositionLeft();
@@ -46,6 +49,7 @@ namespace Player
 		void setPosition(Vector2i position);
 
 		Direction getDirection();
+		Direction getPreviousDirection();
 
 		Vector2i getPosition();
 
