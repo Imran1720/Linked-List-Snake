@@ -40,18 +40,25 @@ namespace Level
 
     }
 
+    void LevelService::createLevel(LinkedListType list_type)
+    {
+        spawnLevelElements(current_level);
+        spawnPlayer(list_type);
+        spawnFood();
+    }
 
-    void LevelService::createLevel(LevelNumber level_to_load)
+
+ /*   void LevelService::createLevel(LevelNumber level_to_load)
     {
         current_level = level_to_load;
         spawnLevelElements(level_to_load);
         spawnPlayer();
         spawnFood();
-    }
+    }*/
 
-    void LevelService::spawnPlayer()
+    void LevelService::spawnPlayer(LinkedListType list_type)
     {
-        ServiceLocator::getInstance()->getPlayerService()->spawnPlayer();
+        ServiceLocator::getInstance()->getPlayerService()->spawnPlayer(list_type);
     }
 
     float LevelService::getCellWidth()
@@ -83,6 +90,11 @@ namespace Level
     {
         int number = static_cast<int>(current_level);
         return number;
+    }
+
+    void LevelService::setLevel(LevelNumber level_to_load)
+    {
+        current_level = level_to_load;
     }
 
     void LevelService::destroy()

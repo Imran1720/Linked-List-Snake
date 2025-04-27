@@ -56,7 +56,7 @@ namespace Element
 		return element_position_list;
 	}
 
-	bool ElementService::processElementCollision(Node* head_node)
+	bool ElementService::processElementCollision(SingleNode* head_node)
 	{
 		for (int i = 0; i < obstale_list.size(); i++)
 		{

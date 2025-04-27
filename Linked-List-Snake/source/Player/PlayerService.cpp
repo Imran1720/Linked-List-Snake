@@ -39,10 +39,12 @@ namespace Player
 
 	}
 
-	void PlayerService::spawnPlayer()
+	void PlayerService::spawnPlayer(LinkedListType list_type)
 	{
+		snake_controller->createLinkedList(list_type);
 		snake_controller->spawnSnake();
 	}
+
 
 	vector<Vector2i> PlayerService::getSnakePositionList()
 	{
@@ -52,6 +54,11 @@ namespace Player
 	int PlayerService::getPlayerScore()
 	{
 		return snake_controller->getPlayerScore();
+	}
+
+	bool PlayerService::isSnakeDead()
+	{
+		return snake_controller->getSnakeState()==SnakeState::DEAD;
 	}
 
 	TimeComplexity PlayerService::getTimeComplexity()

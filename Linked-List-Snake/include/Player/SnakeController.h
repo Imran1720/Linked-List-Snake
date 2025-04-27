@@ -2,11 +2,11 @@
 #include <SFML/Graphics.hpp>
 #include "Player/Direction.h"
 #include "Food/FoodType.h"
-#include "LinkedList/SingleLinkedList.h"
+#include "LinkedListLib/LinkedList.h"
 #include <vector>
 
 using namespace std;
-using namespace LinkedList;
+using namespace LinkedListLib;
 using namespace sf;
 using namespace Food;
 
@@ -44,7 +44,7 @@ namespace Player
 		SnakeState current_snake_state;
 		InputState current_input_state;
 
-		SingleLinkedList* single_linked_list;
+		LinkedList* linked_list;
 
 		void processSnakeBehaviour();
 		void processPlayerInput();
@@ -59,7 +59,6 @@ namespace Player
 
 		void onFoodCollected(FoodType food_type);
 
-		void createLinkedList();
 		void destroy();
 
 	public:
@@ -70,6 +69,8 @@ namespace Player
 		void update();
 		void render();
 
+		void createLinkedList(LinkedListType list_type);
+		void initializeLinkedList();
 		void reset();
 		void respawnSnake();
 		void spawnSnake();
@@ -84,5 +85,7 @@ namespace Player
 		LinkedListOperations getLastOperation();
 
 		int getPlayerScore();
+
+
 	};
 }
