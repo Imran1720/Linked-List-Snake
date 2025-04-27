@@ -27,5 +27,7 @@ namespace Element
 		void initialize(Vector2i position, float width, float height);
 		void update();
 		void render();
+
+		Vector2i getObstaclePosition();
 	};
 }

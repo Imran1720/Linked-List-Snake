@@ -38,6 +38,11 @@ namespace Element
 		obstacle_image->render();
 	}
 
+	Vector2i Obstacle::getObstaclePosition()
+	{
+		return grid_position;
+	}
+
 	void Obstacle::initializeObstacleImage()
 	{
 		Vector2f screen_position = getObstacleScreenPosition();

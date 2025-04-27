@@ -43,6 +43,11 @@ namespace Player
 		snake_controller->spawnSnake();
 	}
 
+	vector<Vector2i> PlayerService::getSnakePositionList()
+	{
+		return snake_controller->getSnakePositionList();
+	}
+
 	void PlayerService::destroy()
 	{
 		delete(snake_controller);

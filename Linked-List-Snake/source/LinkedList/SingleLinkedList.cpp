@@ -146,6 +146,22 @@ namespace LinkedList
         delete(current_node);
     }
 
+    vector<Vector2i> SingleLinkedList::getNodePositionList()
+    {
+        vector<Vector2i> node_Positons_list;
+
+        Node* current_node = head_node;
+
+        while (current_node != nullptr)
+        {
+            node_Positons_list.push_back(current_node->body_part.getPosition());
+            current_node = current_node->next;
+        }
+
+
+        return node_Positons_list;
+    }
+
     Node* SingleLinkedList::getHead()
     {
         return head_node;
