@@ -1,4 +1,4 @@
-# 🐍 Snake 2D - Single Player (SFML)
+# 🐍 Classic Snake 2D(SFML)
 Inspired by the iconic Snake game from the Nokia 3310 era, this project recreates the nostalgic experience with exciting new mechanics! Collect different foods, manage your snake’s size wisely, and survive as long as you can. Eat smart to maximize your score!
 
 ### Gameplay
